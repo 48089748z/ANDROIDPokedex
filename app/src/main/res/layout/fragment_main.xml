@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:showIn="@layout/activity_main"
+    tools:context=".MainActivityFragment"
+    android:background="#000000">
+
+    <VideoView
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:id="@+id/VVmainVideo"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:layout_below="@+id/IVtitle"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="130dp"
+        android:id="@+id/IVtitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pokedex by uRi"
+        android:id="@+id/TVcredits"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:layout_below="@+id/VVmainVideo"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"/>
+
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="190dp"
+        android:id="@+id/IVmasterBall"
+        android:paddingLeft="40dp"
+        android:paddingRight="0dp"
+        android:paddingTop="50dp"
+        android:paddingBottom="20dp"
+        android:layout_alignTop="@+id/TVcredits"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
