@@ -22,7 +22,9 @@ public class PokemonDatabaseAdapter extends SimpleCursorAdapter
         this.context = context;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
+
         Cursor myCursor = getCursor();
         myCursor.moveToPosition(position);
 

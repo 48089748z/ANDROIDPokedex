@@ -37,7 +37,7 @@ public class MainActivityFragment extends Fragment
     PokemonService service;
     Retrofit retrofit;
 
-
+    public MainActivityFragment() {}
     @Override
     public void onStart()
     {
@@ -58,49 +58,21 @@ public class MainActivityFragment extends Fragment
         mainVideo.setVideoURI(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.intro));
         mainVideo.setMediaController(new MediaController(getContext()));
 
-        masterBall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent secret = new Intent(getContext(), SecretActivity.class);
-                startActivity(secret);
-            }
-        });
-
         Picasso.with(getContext()).load(TITLE_URI).fit().into(title);
         Picasso.with(getContext()).load(MASTERBALL_URI).fit().into(masterBall);
 
         return mainActivityFragment;
     }
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    public void deleteDatabase()
     {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        inflater.inflate(R.menu.menu_main, menu);
-    }
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-        if (id == R.id.action_settings)
-        {
-            return true;
-        }
-        if (id == R.id.action_download)
-        {
-            downloadPokedex();
-            Intent gridViewActivity = new Intent(getContext(), GridViewActivity.class);
-            startActivity(gridViewActivity);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    public void downloadPokedex()
-    {
-        createRetrofit();
         getContext().getContentResolver().delete(
                 PokemonColumns.CONTENT_URI,
                 null,
                 null);
-        for (int id=10; id<30; id++) //Loading only 12 Pokemons for Testing
+    }
+    public void downloadPokedex()
+    {
+        for (int id=1; id<715; id++) //Loading only 12 Pokemons for Testing
         {
             Call<Pokemon> call = service.getPokemon(id);
             call.enqueue(new Callback<Pokemon>()
@@ -148,5 +120,25 @@ public class MainActivityFragment extends Fragment
                 .build();
         service = retrofit.create(PokemonService.class);
     }
-    public MainActivityFragment() {}
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if (id == R.id.action_settings)
+        {
+            return true;
+        }
+        if (id == R.id.action_refresh)
+        {
+            deleteDatabase();
+            createRetrofit();
+            downloadPokedex();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -29,15 +29,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.casino.uri.androidpokedex.MainActivity" />
         </activity>
-        <activity
-            android:name=".SecretActivity"
-            android:label="@string/title_activity_secret"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.casino.uri.androidpokedex.MainActivity" />
-        </activity>
+
         <provider
             android:name="com.casino.uri.androidpokedex.provider.PokemonsProvider"
             android:authorities="com.pokemons.app.provider"
