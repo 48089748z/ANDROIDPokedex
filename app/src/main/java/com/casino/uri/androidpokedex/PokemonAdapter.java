@@ -1,4 +1,4 @@
-package com.casino.uri.androidpokedex.com.pojos;
+package com.casino.uri.androidpokedex;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,18 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.casino.uri.androidpokedex.R;
+import com.casino.uri.androidpokedex.com.pojos.Pokemon;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-/**
- * Created by 48089748z on 14/12/15.
- */
 public class PokemonAdapter extends ArrayAdapter<Pokemon>
 {
-    //http://pokeapi.co/media/img/1.png
     final private String IMAGE_BASE_URL = "http://pokeapi.co/media/img/";
     public PokemonAdapter(Context context, int resource, List<Pokemon> objects)
     {

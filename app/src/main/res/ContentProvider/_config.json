@@ -1,0 +1,13 @@
+{
+  "syntaxVersion": 3,
+  "projectPackageId": "com.pokemons.app",
+  "authority": "com.pokemons.app.provider",
+  "providerJavaPackage": "com.pokemons.app.provider",
+  "providerClassName": "PokemonsProvider",
+  "sqliteOpenHelperClassName": "PokemonsSQLiteOpenHelper",
+  "sqliteOpenHelperCallbacksClassName": "PokemonsSQLiteOpenHelperCallbacks",
+  "databaseFileName": "pokemons.db",
+  "databaseVersion": 1,
+  "enableForeignKeys": true,
+  "useAnnotations": true
+}

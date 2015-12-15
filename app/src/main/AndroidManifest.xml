@@ -38,6 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.casino.uri.androidpokedex.MainActivity" />
         </activity>
+        <provider
+            android:name="com.casino.uri.androidpokedex.provider.PokemonsProvider"
+            android:authorities="com.pokemons.app.provider"
+            android:exported="false" />
     </application>
 
 </manifest>
