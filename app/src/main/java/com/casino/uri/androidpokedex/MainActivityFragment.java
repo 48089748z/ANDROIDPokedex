@@ -80,20 +80,26 @@ public class MainActivityFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
+        if (id == R.id.action_settings)
+        {
+            return true;
+        }
         if (id == R.id.action_download)
         {
-            download(); //Quan clickem refresh al Menu s'executara aquest metode.
+            downloadPokedex();
+            Intent gridViewActivity = new Intent(getContext(), GridViewActivity.class);
+            startActivity(gridViewActivity);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-    public void download()
+    public void downloadPokedex()
     {
+        createRetrofit();
         getContext().getContentResolver().delete(
                 PokemonColumns.CONTENT_URI,
                 null,
                 null);
-        createRetrofit();
         for (int id=10; id<30; id++) //Loading only 12 Pokemons for Testing
         {
             Call<Pokemon> call = service.getPokemon(id);
@@ -105,7 +111,6 @@ public class MainActivityFragment extends Fragment
                     if (response.isSuccess())
                     {
                         Pokemon pokemon = response.body();
-
                         PokemonContentValues values = new PokemonContentValues();
                         values.putPkdxId(pokemon.getPkdxId().toString());
                         values.putName(pokemon.getName());
@@ -118,7 +123,7 @@ public class MainActivityFragment extends Fragment
                         String types ="";
                         for (int x=0; x<pokemon.getTypes().size(); x++)
                         {
-                            types = types +" - "+ pokemon.getTypes().get(x);
+                            types = types +" - "+ pokemon.getTypes().get(x).getName();
                         }
                         values.putTypes(types);
                         getContext().getContentResolver().insert(PokemonColumns.CONTENT_URI, values.values());

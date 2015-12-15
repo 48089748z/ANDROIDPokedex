@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 public class PokemonDatabaseAdapter extends SimpleCursorAdapter
 {
     Context context;
+
     public PokemonDatabaseAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.context = context;
@@ -25,7 +26,8 @@ public class PokemonDatabaseAdapter extends SimpleCursorAdapter
         Cursor myCursor = getCursor();
         myCursor.moveToPosition(position);
 
-        if (convertView == null) {
+        if (convertView == null)
+        {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.gridview_layout, parent, false);
         }
@@ -33,9 +35,9 @@ public class PokemonDatabaseAdapter extends SimpleCursorAdapter
         TextView name = (TextView) convertView.findViewById(R.id.TVname);
         ImageView image = (ImageView) convertView.findViewById(R.id.IVimage);
 
-        name.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.NAME)));
-
         String URL = myCursor.getString(myCursor.getColumnIndex(PokemonColumns.MODIFIED));
+
+        name.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.NAME)));
         Picasso.with(context).load(URL).fit().into(image);
         return convertView;
     }

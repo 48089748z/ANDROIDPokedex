@@ -1,10 +1,12 @@
 package com.casino.uri.androidpokedex;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
+
+
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +25,15 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         super.onStart();
     }
     public GridViewActivityFragment(){}
-    @Override
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View gridViewFragment = inflater.inflate(R.layout.fragment_grid_view, container, false);
         setHasOptionsMenu(true);
         
         GridView pokedex = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
+        pokedex.setAdapter(adapter);
+
         adapter = new PokemonDatabaseAdapter(
                 getContext(),
                 R.layout.gridview_layout,
@@ -38,18 +42,18 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 new int[] { R.id.TVname, R.id.IVimage},
                 0);
 
-        pokedex.setAdapter(adapter);
+
         pokedex.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             }
         });
 
         return gridViewFragment;
     }
+
     public Loader<Cursor> onCreateLoader(int id, Bundle args)
     {
         return new CursorLoader(getContext(),
@@ -57,14 +61,12 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 null,
                 null,
                 null,
-                "_id");
+                null);
 
     }
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data)
-    {
-        adapter.swapCursor(data);
-    }
-    public void onLoaderReset(Loader<Cursor> loader) {
-        adapter.swapCursor(null);
-    }
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {adapter.swapCursor(data);}
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {adapter.swapCursor(null);}
+
 }
