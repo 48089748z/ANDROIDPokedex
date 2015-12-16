@@ -42,17 +42,17 @@ public class DetailsActivityFragment extends Fragment
         cursor_id = getActivity().getIntent().getLongExtra("cursor_id", -1);
         if (cursor_id != -1)
         {
-            loadPokemon(cursor_id);
+            loadPokemon(cursor_id, null);
         }
         else
         {
-            loadSearchedPokemon(getActivity().getIntent().getStringExtra("pokemonName"));
+            loadPokemon(-1, getActivity().getIntent().getStringExtra("pokemonName"));
         }
         return detailsActivityFragment;
     }
-    public void loadPokemon(long id)
+    public void loadPokemon(long id, String pokemonName)
     {
-        try
+        if (pokemonName == null)
         {
             myCursor = getContext().getContentResolver().query(
                     PokemonColumns.CONTENT_URI,
@@ -62,27 +62,23 @@ public class DetailsActivityFragment extends Fragment
                     "_id");
             fillFields();
         }
-        catch(Exception e)
+        else
         {
-            name.setText("POKEMON NOT FOUND");
-        }
-    }
-    public void loadSearchedPokemon(String pokemonName)
-    {
-        try
-        {
-            myCursor = getContext().getContentResolver().query(
-                    PokemonColumns.CONTENT_URI,
-                    null,
-                    PokemonColumns.NAME + " = ?",
-                    new String[]{String.valueOf(pokemonName)},
-                    "_id");
-            fillFields();
-        }
-        catch(Exception e)
-        {
-            name.setText("POKEMON NOT FOUND");
-            Picasso.with(getContext()).load(R.drawable.pokemonnotfound).fit().into(image);
+            try
+            {
+                myCursor = getContext().getContentResolver().query(
+                        PokemonColumns.CONTENT_URI,
+                        null,
+                        PokemonColumns.NAME + " = ?",
+                        new String[]{String.valueOf(pokemonName)},
+                        "_id");
+                fillFields();
+            }
+            catch(Exception nameNotFound)
+            {
+                name.setText("POKEMON NOT FOUND");
+                Picasso.with(getContext()).load(R.drawable.pokemonnotfound).fit().into(image);
+            }
         }
     }
     public void fillFields()

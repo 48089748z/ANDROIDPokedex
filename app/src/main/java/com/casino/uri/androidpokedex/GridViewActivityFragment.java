@@ -70,6 +70,16 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 search.setHint("Search Pokemon by name");
             }
         });
+
+        pokedex.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+            {
+
+
+                return false;
+            }
+        });
         return gridViewFragment;
     }
     public Loader<Cursor> onCreateLoader(int id, Bundle args)
