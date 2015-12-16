@@ -20,6 +20,8 @@
         android:textColor="#ffffff"
         android:textSize="18dp"
         android:textAlignment="center"
-        android:layout_alignEnd="@+id/IVimage" />
+        android:layout_alignEnd="@+id/IVimage"
+        android:textStyle="italic"
+        android:background="#b4000000" />
 
 </RelativeLayout>

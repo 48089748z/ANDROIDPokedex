@@ -1,0 +1,206 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:showIn="@layout/activity_details"
+    tools:context="com.casino.uri.androidpokedex.DetailsActivityFragment"
+    android:background="#000000">
+
+
+    <ImageView
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        android:id="@+id/IVdetailsImage"
+        android:layout_below="@+id/TVdetailsName"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:id="@+id/TVdetailsName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textSize="44dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsId"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/TVdetailsSpacer"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsHp"
+        android:textSize="20dp"
+        android:textAlignment="textStart"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/TVdetailsSpacer"
+        android:layout_below="@+id/IVdetailsImage"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/TVdetailsName"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsHp"
+        android:layout_below="@+id/TVdetailsId"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsSpacer"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsWeight"
+        android:layout_below="@+id/TVdetailsHp"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsHp"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsSpAtk"
+        android:layout_below="@+id/TVdetailsWeight"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsSpDef"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsSpDef"
+        android:layout_below="@+id/TVdetailsSpAtk"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsCreated"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsCreated"
+        android:layout_below="@+id/TVdetailsSpDef"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsTypes"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVdetailsTypes"
+        android:layout_below="@+id/TVdetailsCreated"
+        android:layout_alignParentStart="false"
+        android:layout_alignEnd="@+id/TVdetailsHp"
+        android:textColor="#ffffff"
+        android:textAlignment="textStart"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  ID:"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/TVdetailsId"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/TVdetailsId"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Lifepoints:"
+        android:id="@+id/textView2"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/TVdetailsId"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/TVdetailsId" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Weight:"
+        android:id="@+id/textView3"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/TVdetailsHp"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/TVdetailsWeight" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Special Attack:"
+        android:id="@+id/textView4"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_alignTop="@+id/TVdetailsSpAtk"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/TVdetailsSpAtk" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Special Defense:"
+        android:id="@+id/textView5"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/TVdetailsSpAtk"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/TVdetailsSpAtk" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Created on:"
+        android:id="@+id/textView6"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_alignTop="@+id/TVdetailsCreated"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/TVdetailsCreated" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Types:"
+        android:id="@+id/textView7"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_alignTop="@+id/TVdetailsTypes"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textView6" />
+</RelativeLayout>

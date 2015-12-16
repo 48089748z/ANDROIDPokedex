@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_height="match_parent" android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
     tools:showIn="@layout/activity_grid_view"
     tools:context="com.casino.uri.androidpokedex.GridViewActivityFragment"
     android:background="#000000">
@@ -15,4 +15,28 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:numColumns="3" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="55dp"
+        android:id="@+id/ETsearch"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:background="#a09c27b0"
+        android:hint="Search Pokemon by name"
+        android:textSize="25dp"
+        android:textStyle="normal"
+        android:height="45dp"
+        android:layout_toStartOf="@+id/BTsearch"
+        android:textColorHint="#ffffff" />
+
+    <ImageButton
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:id="@+id/BTsearch"
+        android:background="#9C27B0"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_check_24"/>
 </RelativeLayout>

@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_ball"
+        android:icon="@mipmap/ic_masterball"
         android:label="Pokedex"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
@@ -31,9 +31,15 @@
         </activity>
 
         <provider
-            android:name="com.casino.uri.androidpokedex.provider.PokemonsProvider"
+            android:name=".provider.PokemonsProvider"
             android:authorities="com.pokemons.app.provider"
             android:exported="false" />
+
+        <activity
+            android:name=".DetailsActivity"
+            android:label="@string/title_activity_details"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

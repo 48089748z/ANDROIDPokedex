@@ -1,4 +1,6 @@
 package com.casino.uri.androidpokedex;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -128,17 +130,35 @@ public class MainActivityFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        if (id == R.id.action_settings)
+        if (id == R.id.action_open)
         {
-            return true;
+            Intent gridViewActivity = new Intent(getContext(), GridViewActivity.class);
+            startActivity(gridViewActivity);
         }
         if (id == R.id.action_refresh)
         {
-            deleteDatabase();
-            createRetrofit();
-            downloadPokedex();
+            warningWindow();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void warningWindow()
+    {
+        new AlertDialog.Builder(getContext())
+                .setTitle("        WARNING")
+                .setMessage("Are you sure you want to delete the whole Pokemons Database to fully download it again from the internet?\n\nThis is only recommended if you have Good Wifi Connection")
+                .setPositiveButton("Download", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        deleteDatabase();
+                        createRetrofit();
+                        downloadPokedex();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which){}
+                })
+                .setIcon(R.drawable.ic_alert_48)
+                .show();
     }
 }
