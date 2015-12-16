@@ -7,13 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.casino.uri.androidpokedex.provider.favorite.FavoriteColumns;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.squareup.picasso.Picasso;
 
 public class DetailsActivityFragment extends Fragment
 {
     Cursor myCursor = null;
-    private long cursor_id = -1;
+    String pokemonName = null;
+    private long grid_id = -1;
+    private long favorite_id = -1;
     TextView name;
     TextView pkdx_id;
     TextView hp;
@@ -39,30 +43,25 @@ public class DetailsActivityFragment extends Fragment
         created = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsCreated);
         image = (ImageView) detailsActivityFragment.findViewById(R.id.IVdetailsImage);
 
-        cursor_id = getActivity().getIntent().getLongExtra("cursor_id", -1);
-        if (cursor_id != -1)
-        {
-            loadPokemon(cursor_id, null);
-        }
-        else
-        {
-            loadPokemon(-1, getActivity().getIntent().getStringExtra("pokemonName"));
-        }
+        pokemonName = getActivity().getIntent().getStringExtra("pokemonName");
+        grid_id = getActivity().getIntent().getLongExtra("grid_id", -1);
+        favorite_id = getActivity().getIntent().getLongExtra("favorite_id", -1);
+        loadPokemon();
         return detailsActivityFragment;
     }
-    public void loadPokemon(long id, String pokemonName)
+    public void loadPokemon()
     {
-        if (pokemonName == null)
+        if (pokemonName == null && grid_id != -1 && favorite_id == -1) //LOADS GRID ID
         {
             myCursor = getContext().getContentResolver().query(
                     PokemonColumns.CONTENT_URI,
                     null,
                     PokemonColumns._ID + " = ?",
-                    new String[]{String.valueOf(id)},
+                    new String[]{String.valueOf(grid_id)},
                     "_id");
-            fillFields();
+            fillPokemon();
         }
-        else
+        if (pokemonName != null && grid_id == -1 && favorite_id == -1) //LOADS THE SEARCH BY NAME
         {
             try
             {
@@ -72,7 +71,7 @@ public class DetailsActivityFragment extends Fragment
                         PokemonColumns.NAME + " = ?",
                         new String[]{String.valueOf(pokemonName)},
                         "_id");
-                fillFields();
+                fillPokemon();
             }
             catch(Exception nameNotFound)
             {
@@ -80,8 +79,18 @@ public class DetailsActivityFragment extends Fragment
                 Picasso.with(getContext()).load(R.drawable.pokemonnotfound).fit().into(image);
             }
         }
+        if (pokemonName == null && grid_id == -1 && favorite_id != -1) //LOADS FAVORITE ID
+        {
+            myCursor = getContext().getContentResolver().query(
+                    FavoriteColumns.CONTENT_URI,
+                    null,
+                    FavoriteColumns._ID + " = ?",
+                    new String[]{String.valueOf(favorite_id)},
+                    "_id");
+            fillFavorite();
+        }
     }
-    public void fillFields()
+    public void fillPokemon()
     {
         if (myCursor != null)
         {
@@ -94,7 +103,23 @@ public class DetailsActivityFragment extends Fragment
             spDef.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.SPDEF)));
             types.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.TYPES)));
             created.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.CREATED)).substring(0, 10));
-            Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.MODIFIED))).fit().into(image);
+            Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.IMAGE))).fit().into(image);
+        }
+    }
+    public void fillFavorite()
+    {
+        if (myCursor != null)
+        {
+            myCursor.moveToNext();
+            name.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.NAME)).toUpperCase());
+            pkdx_id.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.PKDX_ID)));
+            hp.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.HP)) + " hp");
+            weight.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.WEIGHT)) + " kg");
+            spAtk.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.SPATK)));
+            spDef.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.SPDEF)));
+            types.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.TYPES)));
+            created.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.CREATED)).substring(0, 10));
+            Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.IMAGE))).fit().into(image);
         }
     }
 }

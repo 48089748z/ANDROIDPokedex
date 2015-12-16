@@ -1,14 +1,11 @@
 package com.casino.uri.androidpokedex.provider.pokemon;
 
-import java.util.Date;
-
 import android.content.Context;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 
 import com.casino.uri.androidpokedex.provider.base.AbstractSelection;
-
 
 /**
  * Selection for the {@code pokemon} table.
@@ -79,46 +76,6 @@ public class PokemonSelection extends AbstractSelection<PokemonSelection> {
         return orderById(false);
     }
 
-    public PokemonSelection name(String... value) {
-        addEquals(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonSelection nameNot(String... value) {
-        addNotEquals(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonSelection nameLike(String... value) {
-        addLike(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonSelection nameContains(String... value) {
-        addContains(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonSelection nameStartsWith(String... value) {
-        addStartsWith(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonSelection nameEndsWith(String... value) {
-        addEndsWith(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonSelection orderByName(boolean desc) {
-        orderBy(PokemonColumns.NAME, desc);
-        return this;
-    }
-
-    public PokemonSelection orderByName() {
-        orderBy(PokemonColumns.NAME, false);
-        return this;
-    }
-
     public PokemonSelection pkdxId(String... value) {
         addEquals(PokemonColumns.PKDX_ID, value);
         return this;
@@ -159,73 +116,73 @@ public class PokemonSelection extends AbstractSelection<PokemonSelection> {
         return this;
     }
 
-    public PokemonSelection hp(Integer... value) {
-        addEquals(PokemonColumns.HP, value);
+    public PokemonSelection name(String... value) {
+        addEquals(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonSelection hpNot(Integer... value) {
-        addNotEquals(PokemonColumns.HP, value);
+    public PokemonSelection nameNot(String... value) {
+        addNotEquals(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonSelection hpGt(int value) {
-        addGreaterThan(PokemonColumns.HP, value);
+    public PokemonSelection nameLike(String... value) {
+        addLike(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonSelection hpGtEq(int value) {
-        addGreaterThanOrEquals(PokemonColumns.HP, value);
+    public PokemonSelection nameContains(String... value) {
+        addContains(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonSelection hpLt(int value) {
-        addLessThan(PokemonColumns.HP, value);
+    public PokemonSelection nameStartsWith(String... value) {
+        addStartsWith(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonSelection hpLtEq(int value) {
-        addLessThanOrEquals(PokemonColumns.HP, value);
+    public PokemonSelection nameEndsWith(String... value) {
+        addEndsWith(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonSelection orderByHp(boolean desc) {
-        orderBy(PokemonColumns.HP, desc);
+    public PokemonSelection orderByName(boolean desc) {
+        orderBy(PokemonColumns.NAME, desc);
         return this;
     }
 
-    public PokemonSelection orderByHp() {
-        orderBy(PokemonColumns.HP, false);
+    public PokemonSelection orderByName() {
+        orderBy(PokemonColumns.NAME, false);
         return this;
     }
 
-    public PokemonSelection spatk(Integer... value) {
+    public PokemonSelection spatk(String... value) {
         addEquals(PokemonColumns.SPATK, value);
         return this;
     }
 
-    public PokemonSelection spatkNot(Integer... value) {
+    public PokemonSelection spatkNot(String... value) {
         addNotEquals(PokemonColumns.SPATK, value);
         return this;
     }
 
-    public PokemonSelection spatkGt(int value) {
-        addGreaterThan(PokemonColumns.SPATK, value);
+    public PokemonSelection spatkLike(String... value) {
+        addLike(PokemonColumns.SPATK, value);
         return this;
     }
 
-    public PokemonSelection spatkGtEq(int value) {
-        addGreaterThanOrEquals(PokemonColumns.SPATK, value);
+    public PokemonSelection spatkContains(String... value) {
+        addContains(PokemonColumns.SPATK, value);
         return this;
     }
 
-    public PokemonSelection spatkLt(int value) {
-        addLessThan(PokemonColumns.SPATK, value);
+    public PokemonSelection spatkStartsWith(String... value) {
+        addStartsWith(PokemonColumns.SPATK, value);
         return this;
     }
 
-    public PokemonSelection spatkLtEq(int value) {
-        addLessThanOrEquals(PokemonColumns.SPATK, value);
+    public PokemonSelection spatkEndsWith(String... value) {
+        addEndsWith(PokemonColumns.SPATK, value);
         return this;
     }
 
@@ -239,33 +196,33 @@ public class PokemonSelection extends AbstractSelection<PokemonSelection> {
         return this;
     }
 
-    public PokemonSelection spdef(Integer... value) {
+    public PokemonSelection spdef(String... value) {
         addEquals(PokemonColumns.SPDEF, value);
         return this;
     }
 
-    public PokemonSelection spdefNot(Integer... value) {
+    public PokemonSelection spdefNot(String... value) {
         addNotEquals(PokemonColumns.SPDEF, value);
         return this;
     }
 
-    public PokemonSelection spdefGt(int value) {
-        addGreaterThan(PokemonColumns.SPDEF, value);
+    public PokemonSelection spdefLike(String... value) {
+        addLike(PokemonColumns.SPDEF, value);
         return this;
     }
 
-    public PokemonSelection spdefGtEq(int value) {
-        addGreaterThanOrEquals(PokemonColumns.SPDEF, value);
+    public PokemonSelection spdefContains(String... value) {
+        addContains(PokemonColumns.SPDEF, value);
         return this;
     }
 
-    public PokemonSelection spdefLt(int value) {
-        addLessThan(PokemonColumns.SPDEF, value);
+    public PokemonSelection spdefStartsWith(String... value) {
+        addStartsWith(PokemonColumns.SPDEF, value);
         return this;
     }
 
-    public PokemonSelection spdefLtEq(int value) {
-        addLessThanOrEquals(PokemonColumns.SPDEF, value);
+    public PokemonSelection spdefEndsWith(String... value) {
+        addEndsWith(PokemonColumns.SPDEF, value);
         return this;
     }
 
@@ -316,6 +273,46 @@ public class PokemonSelection extends AbstractSelection<PokemonSelection> {
 
     public PokemonSelection orderByWeight() {
         orderBy(PokemonColumns.WEIGHT, false);
+        return this;
+    }
+
+    public PokemonSelection hp(String... value) {
+        addEquals(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonSelection hpNot(String... value) {
+        addNotEquals(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonSelection hpLike(String... value) {
+        addLike(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonSelection hpContains(String... value) {
+        addContains(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonSelection hpStartsWith(String... value) {
+        addStartsWith(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonSelection hpEndsWith(String... value) {
+        addEndsWith(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonSelection orderByHp(boolean desc) {
+        orderBy(PokemonColumns.HP, desc);
+        return this;
+    }
+
+    public PokemonSelection orderByHp() {
+        orderBy(PokemonColumns.HP, false);
         return this;
     }
 
@@ -436,6 +433,46 @@ public class PokemonSelection extends AbstractSelection<PokemonSelection> {
 
     public PokemonSelection orderByTypes() {
         orderBy(PokemonColumns.TYPES, false);
+        return this;
+    }
+
+    public PokemonSelection image(String... value) {
+        addEquals(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonSelection imageNot(String... value) {
+        addNotEquals(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonSelection imageLike(String... value) {
+        addLike(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonSelection imageContains(String... value) {
+        addContains(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonSelection imageStartsWith(String... value) {
+        addStartsWith(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonSelection imageEndsWith(String... value) {
+        addEndsWith(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonSelection orderByImage(boolean desc) {
+        orderBy(PokemonColumns.IMAGE, desc);
+        return this;
+    }
+
+    public PokemonSelection orderByImage() {
+        orderBy(PokemonColumns.IMAGE, false);
         return this;
     }
 }

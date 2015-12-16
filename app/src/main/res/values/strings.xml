@@ -4,4 +4,5 @@
     <string name="title_activity_grid_view">GridViewActivity</string>
     <string name="title_activity_secret">SecretActivity</string>
     <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_favorites">FavoritesActivity</string>
 </resources>

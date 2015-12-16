@@ -37,8 +37,7 @@ public class PokemonDatabaseAdapter extends SimpleCursorAdapter
         TextView name = (TextView) convertView.findViewById(R.id.TVname);
         ImageView image = (ImageView) convertView.findViewById(R.id.IVimage);
 
-        String URL = myCursor.getString(myCursor.getColumnIndex(PokemonColumns.MODIFIED));
-
+        String URL = myCursor.getString(myCursor.getColumnIndex(PokemonColumns.IMAGE));
         name.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.NAME)));
         Picasso.with(context).load(URL).fit().into(image);
         return convertView;

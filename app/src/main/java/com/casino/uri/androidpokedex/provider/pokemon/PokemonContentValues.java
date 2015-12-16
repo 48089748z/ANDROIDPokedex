@@ -1,13 +1,11 @@
 package com.casino.uri.androidpokedex.provider.pokemon;
 
-
-
 import android.content.Context;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import com.casino.uri.androidpokedex.provider.base.AbstractContentValues;
 
+import com.casino.uri.androidpokedex.provider.base.AbstractContentValues;
 
 /**
  * Content values wrapper for the {@code pokemon} table.
@@ -28,19 +26,14 @@ public class PokemonContentValues extends AbstractContentValues {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
     }
 
-
+    /**
+     * Update row(s) using the values stored by this object and the given selection.
+     *
+     * @param contentResolver The content resolver to use.
+     * @param where The selection to use (can be {@code null}).
+     */
     public int update(Context context, @Nullable PokemonSelection where) {
         return context.getContentResolver().update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
-    }
-
-    public PokemonContentValues putName(@Nullable String value) {
-        mContentValues.put(PokemonColumns.NAME, value);
-        return this;
-    }
-
-    public PokemonContentValues putNameNull() {
-        mContentValues.putNull(PokemonColumns.NAME);
-        return this;
     }
 
     public PokemonContentValues putPkdxId(@Nullable String value) {
@@ -53,17 +46,17 @@ public class PokemonContentValues extends AbstractContentValues {
         return this;
     }
 
-    public PokemonContentValues putHp(@Nullable Integer value) {
-        mContentValues.put(PokemonColumns.HP, value);
+    public PokemonContentValues putName(@Nullable String value) {
+        mContentValues.put(PokemonColumns.NAME, value);
         return this;
     }
 
-    public PokemonContentValues putHpNull() {
-        mContentValues.putNull(PokemonColumns.HP);
+    public PokemonContentValues putNameNull() {
+        mContentValues.putNull(PokemonColumns.NAME);
         return this;
     }
 
-    public PokemonContentValues putSpatk(@Nullable Integer value) {
+    public PokemonContentValues putSpatk(@Nullable String value) {
         mContentValues.put(PokemonColumns.SPATK, value);
         return this;
     }
@@ -73,7 +66,7 @@ public class PokemonContentValues extends AbstractContentValues {
         return this;
     }
 
-    public PokemonContentValues putSpdef(@Nullable Integer value) {
+    public PokemonContentValues putSpdef(@Nullable String value) {
         mContentValues.put(PokemonColumns.SPDEF, value);
         return this;
     }
@@ -90,6 +83,16 @@ public class PokemonContentValues extends AbstractContentValues {
 
     public PokemonContentValues putWeightNull() {
         mContentValues.putNull(PokemonColumns.WEIGHT);
+        return this;
+    }
+
+    public PokemonContentValues putHp(@Nullable String value) {
+        mContentValues.put(PokemonColumns.HP, value);
+        return this;
+    }
+
+    public PokemonContentValues putHpNull() {
+        mContentValues.putNull(PokemonColumns.HP);
         return this;
     }
 
@@ -120,6 +123,16 @@ public class PokemonContentValues extends AbstractContentValues {
 
     public PokemonContentValues putTypesNull() {
         mContentValues.putNull(PokemonColumns.TYPES);
+        return this;
+    }
+
+    public PokemonContentValues putImage(@Nullable String value) {
+        mContentValues.put(PokemonColumns.IMAGE, value);
+        return this;
+    }
+
+    public PokemonContentValues putImageNull() {
+        mContentValues.putNull(PokemonColumns.IMAGE);
         return this;
     }
 }

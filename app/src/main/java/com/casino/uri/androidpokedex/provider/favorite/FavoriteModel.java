@@ -1,13 +1,13 @@
-package com.casino.uri.androidpokedex.provider.pokemon;
+package com.casino.uri.androidpokedex.provider.favorite;
 
 import com.casino.uri.androidpokedex.provider.base.BaseModel;
 
 import android.support.annotation.Nullable;
 
 /**
- * Data model for the {@code pokemon} table.
+ * Data model for the {@code favorite} table.
  */
-public interface PokemonModel extends BaseModel {
+public interface FavoriteModel extends BaseModel {
 
     /**
      * Get the {@code pkdx_id} value.

@@ -1,4 +1,4 @@
-package com.casino.uri.androidpokedex.provider.pokemon;
+package com.casino.uri.androidpokedex.provider.favorite;
 
 import android.database.Cursor;
 import android.support.annotation.Nullable;
@@ -6,10 +6,10 @@ import android.support.annotation.Nullable;
 import com.casino.uri.androidpokedex.provider.base.AbstractCursor;
 
 /**
- * Cursor wrapper for the {@code pokemon} table.
+ * Cursor wrapper for the {@code favorite} table.
  */
-public class PokemonCursor extends AbstractCursor implements PokemonModel {
-    public PokemonCursor(Cursor cursor) {
+public class FavoriteCursor extends AbstractCursor implements FavoriteModel {
+    public FavoriteCursor(Cursor cursor) {
         super(cursor);
     }
 
@@ -17,7 +17,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      * Primary key.
      */
     public long getId() {
-        Long res = getLongOrNull(PokemonColumns._ID);
+        Long res = getLongOrNull(FavoriteColumns._ID);
         if (res == null)
             throw new NullPointerException("The value of '_id' in the database was null, which is not allowed according to the model definition");
         return res;
@@ -29,7 +29,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getPkdxId() {
-        String res = getStringOrNull(PokemonColumns.PKDX_ID);
+        String res = getStringOrNull(FavoriteColumns.PKDX_ID);
         return res;
     }
 
@@ -39,7 +39,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getName() {
-        String res = getStringOrNull(PokemonColumns.NAME);
+        String res = getStringOrNull(FavoriteColumns.NAME);
         return res;
     }
 
@@ -49,7 +49,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getSpatk() {
-        String res = getStringOrNull(PokemonColumns.SPATK);
+        String res = getStringOrNull(FavoriteColumns.SPATK);
         return res;
     }
 
@@ -59,7 +59,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getSpdef() {
-        String res = getStringOrNull(PokemonColumns.SPDEF);
+        String res = getStringOrNull(FavoriteColumns.SPDEF);
         return res;
     }
 
@@ -69,7 +69,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getWeight() {
-        String res = getStringOrNull(PokemonColumns.WEIGHT);
+        String res = getStringOrNull(FavoriteColumns.WEIGHT);
         return res;
     }
 
@@ -79,7 +79,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getHp() {
-        String res = getStringOrNull(PokemonColumns.HP);
+        String res = getStringOrNull(FavoriteColumns.HP);
         return res;
     }
 
@@ -89,7 +89,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getCreated() {
-        String res = getStringOrNull(PokemonColumns.CREATED);
+        String res = getStringOrNull(FavoriteColumns.CREATED);
         return res;
     }
 
@@ -99,7 +99,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getModified() {
-        String res = getStringOrNull(PokemonColumns.MODIFIED);
+        String res = getStringOrNull(FavoriteColumns.MODIFIED);
         return res;
     }
 
@@ -109,7 +109,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getTypes() {
-        String res = getStringOrNull(PokemonColumns.TYPES);
+        String res = getStringOrNull(FavoriteColumns.TYPES);
         return res;
     }
 
@@ -119,7 +119,7 @@ public class PokemonCursor extends AbstractCursor implements PokemonModel {
      */
     @Nullable
     public String getImage() {
-        String res = getStringOrNull(PokemonColumns.IMAGE);
+        String res = getStringOrNull(FavoriteColumns.IMAGE);
         return res;
     }
 }

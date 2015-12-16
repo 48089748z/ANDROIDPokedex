@@ -1,0 +1,44 @@
+{
+  "fields": [
+    {
+      "name": "pkdx_id",
+      "type": "String"
+    },
+    {
+      "name": "name",
+      "type": "String"
+    },
+    {
+      "name": "spatk",
+      "type": "String"
+    },
+    {
+      "name": "spdef",
+      "type": "String"
+    },
+    {
+      "name": "weight",
+      "type": "String"
+    },
+    {
+      "name": "hp",
+      "type": "String"
+    },
+    {
+      "name": "created",
+      "type": "String"
+    },
+    {
+      "name": "modified",
+      "type": "String"
+    },
+    {
+      "name": "types",
+      "type": "String"
+    },
+    {
+      "name": "image",
+      "type": "String"
+    }
+  ]
+}

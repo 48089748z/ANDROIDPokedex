@@ -1,4 +1,4 @@
-package com.casino.uri.androidpokedex.provider.pokemon;
+package com.casino.uri.androidpokedex.provider.favorite;
 
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -6,10 +6,10 @@ import android.provider.BaseColumns;
 import com.casino.uri.androidpokedex.provider.PokemonsProvider;
 
 /**
- * Columns for the {@code pokemon} table.
+ * Columns for the {@code favorite} table.
  */
-public class PokemonColumns implements BaseColumns {
-    public static final String TABLE_NAME = "pokemon";
+public class FavoriteColumns implements BaseColumns {
+    public static final String TABLE_NAME = "favorite";
     public static final Uri CONTENT_URI = Uri.parse(PokemonsProvider.CONTENT_URI_BASE + "/" + TABLE_NAME);
 
     /**

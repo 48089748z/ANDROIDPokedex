@@ -88,12 +88,13 @@ public class MainActivityFragment extends Fragment
                         PokemonContentValues values = new PokemonContentValues();
                         values.putPkdxId(pokemon.getPkdxId().toString());
                         values.putName(pokemon.getName());
-                        values.putSpatk(pokemon.getSpAtk());
-                        values.putSpdef(pokemon.getSpDef());
+                        values.putSpatk(pokemon.getSpAtk().toString());
+                        values.putSpdef(pokemon.getSpDef().toString());
                         values.putWeight(pokemon.getWeight());
-                        values.putHp(pokemon.getHp());
+                        values.putHp(pokemon.getHp().toString());
                         values.putCreated(pokemon.getCreated());
-                        values.putModified("http://pokeapi.co/media/img/"+pokemon.getPkdxId().toString()+".png");
+                        values.putModified(pokemon.getModified());
+                        values.putImage("http://pokeapi.co/media/img/" + pokemon.getPkdxId().toString() + ".png");
                         String types ="";
                         for (int x=0; x<pokemon.getTypes().size(); x++)
                         {
@@ -146,7 +147,7 @@ public class MainActivityFragment extends Fragment
     {
         new AlertDialog.Builder(getContext())
                 .setTitle("        WARNING")
-                .setMessage("Are you sure you want to delete the whole Pokemons Database to fully download it again from the internet?\n\nThis is only recommended if you have Good Wifi Connection")
+                .setMessage("Are you sure you want to delete the whole Pokedex Database to fully download it again from the internet?\n\nThis is only recommended if you have Good Wifi Connection")
                 .setPositiveButton("Download", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which)
                     {

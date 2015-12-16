@@ -2,9 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.casino.uri.androidpokedex.GridViewActivity">
+    <item android:id="@+id/action_favorites"
+        android:title="Add to Favorites"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_favorites_24"
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/action_search"
         android:title="Search Pokemon"
         android:orderInCategory="100"
         android:icon="@drawable/ic_search_24"
         app:showAsAction="ifRoom" />
+
 </menu>

@@ -12,6 +12,7 @@ import android.util.Log;
 import com.casino.uri.androidpokedex.BuildConfig;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 
+import com.casino.uri.androidpokedex.provider.favorite.FavoriteColumns;
 
 public class PokemonsSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = PokemonsSQLiteOpenHelper.class.getSimpleName();
@@ -23,18 +24,34 @@ public class PokemonsSQLiteOpenHelper extends SQLiteOpenHelper {
     private final PokemonsSQLiteOpenHelperCallbacks mOpenHelperCallbacks;
 
     // @formatter:off
+    public static final String SQL_CREATE_TABLE_FAVORITE = "CREATE TABLE IF NOT EXISTS "
+            + FavoriteColumns.TABLE_NAME + " ( "
+            + FavoriteColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + FavoriteColumns.PKDX_ID + " TEXT, "
+            + FavoriteColumns.NAME + " TEXT, "
+            + FavoriteColumns.SPATK + " TEXT, "
+            + FavoriteColumns.SPDEF + " TEXT, "
+            + FavoriteColumns.WEIGHT + " TEXT, "
+            + FavoriteColumns.HP + " TEXT, "
+            + FavoriteColumns.CREATED + " TEXT, "
+            + FavoriteColumns.MODIFIED + " TEXT, "
+            + FavoriteColumns.TYPES + " TEXT, "
+            + FavoriteColumns.IMAGE + " TEXT "
+            + " );";
+
     public static final String SQL_CREATE_TABLE_POKEMON = "CREATE TABLE IF NOT EXISTS "
             + PokemonColumns.TABLE_NAME + " ( "
             + PokemonColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + PokemonColumns.NAME + " TEXT, "
             + PokemonColumns.PKDX_ID + " TEXT, "
-            + PokemonColumns.HP + " INTEGER, "
-            + PokemonColumns.SPATK + " INTEGER, "
-            + PokemonColumns.SPDEF + " INTEGER, "
+            + PokemonColumns.NAME + " TEXT, "
+            + PokemonColumns.SPATK + " TEXT, "
+            + PokemonColumns.SPDEF + " TEXT, "
             + PokemonColumns.WEIGHT + " TEXT, "
+            + PokemonColumns.HP + " TEXT, "
             + PokemonColumns.CREATED + " TEXT, "
             + PokemonColumns.MODIFIED + " TEXT, "
-            + PokemonColumns.TYPES + " TEXT "
+            + PokemonColumns.TYPES + " TEXT, "
+            + PokemonColumns.IMAGE + " TEXT "
             + " );";
 
     // @formatter:on
@@ -91,6 +108,7 @@ public class PokemonsSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         if (BuildConfig.DEBUG) Log.d(TAG, "onCreate");
         mOpenHelperCallbacks.onPreCreate(mContext, db);
+        db.execSQL(SQL_CREATE_TABLE_FAVORITE);
         db.execSQL(SQL_CREATE_TABLE_POKEMON);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }

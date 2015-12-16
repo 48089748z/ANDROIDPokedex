@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <item
+        android:id="@+id/item_favorite"
+        android:showAsAction="ifRoom|withText"
+        android:title="Add to Favorites"
+        android:visible="true"/>
+    <item
+        android:id="@+id/item_fight"
+        android:showAsAction="ifRoom|withText"
+        android:title="Fight"
+        android:visible="true"/>
+    <item
+        android:id="@+id/item_details"
+        android:showAsAction="ifRoom|withText"
+        android:title="Pokemon Details"
+        android:visible="true"/>
+</menu>
