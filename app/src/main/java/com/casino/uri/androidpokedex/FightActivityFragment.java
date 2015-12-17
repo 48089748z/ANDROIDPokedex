@@ -2,6 +2,7 @@ package com.casino.uri.androidpokedex;
 
 import android.database.Cursor;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,10 +19,10 @@ import android.widget.TextView;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 public class FightActivityFragment extends Fragment
 {
+    MediaPlayer music;
+    MediaPlayer sounds;
     TextView won;
     TextView lost;
     Integer nWon = 0;
@@ -40,8 +41,18 @@ public class FightActivityFragment extends Fragment
     TextView result;
     long id_fighter1 = -1;
 
+    public void onStart()
+    {
+        super.onStart();
+        music = MediaPlayer.create(getContext(), R.raw.song_battle);
+        music.start();
+    }
+    public void onStop()
+    {
+        super.onStop();
+        if (music.isPlaying()) {music.stop();}
+    }
     public FightActivityFragment() {}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fightActivity = inflater.inflate(R.layout.fragment_fight, container, false);
@@ -75,13 +86,17 @@ public class FightActivityFragment extends Fragment
                     result.setTextColor(Color.GREEN);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter2);
                     nWon++;
+                    sounds = MediaPlayer.create(getContext(), R.raw.sound_won);
+                    sounds.start();
                 }
                 if (whoWins() == 2)
                 {
-                    result.setText(name2.getText()+" WON");
+                    result.setText(name1.getText() + " LOST");
                     result.setTextColor(Color.RED);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter1);
                     nLost++;
+                    sounds = MediaPlayer.create(getContext(), R.raw.sound_lost);
+                    sounds.start();
                 }
                 if (whoWins() == 0)
                 {
@@ -95,6 +110,8 @@ public class FightActivityFragment extends Fragment
             @Override
             public void onClick(View v)
             {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
+                sounds.start();
                 String pokemonName = search.getText().toString().toLowerCase();
                 String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
                 loadPokemon2(parsedPokemonName);
@@ -143,6 +160,8 @@ public class FightActivityFragment extends Fragment
         int id = item.getItemId();
         if (id == R.id.action_search)
         {
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
+            sounds.start();
             search.setVisibility(View.VISIBLE);
             searchBT.setVisibility(View.VISIBLE);
             fight.setVisibility(View.INVISIBLE);

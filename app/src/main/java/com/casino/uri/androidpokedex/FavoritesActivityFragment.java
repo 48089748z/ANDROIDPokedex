@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
@@ -23,6 +24,8 @@ import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 
 public class FavoritesActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    MediaPlayer music;
+    MediaPlayer sounds;
     Cursor myCursor;
     long cursor_id = -1;
     GridView favorites;
@@ -104,6 +107,13 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
     {
         super.onStart();
         getLoaderManager().restartLoader(0, null, this);
+        music = MediaPlayer.create(getContext(), R.raw.song_healing);
+        music.start();
+    }
+    public void onStop()
+    {
+        super.onStop();
+        if (music.isPlaying()) {music.stop();}
     }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
@@ -128,6 +138,8 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 .setPositiveButton("Delete All", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        sounds = MediaPlayer.create(getContext(), R.raw.sound_favorites_deleted);
+                        sounds.start();
                         deleteDatabase();
                     }
                 })

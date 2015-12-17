@@ -2,6 +2,7 @@ package com.casino.uri.androidpokedex;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import retrofit.http.Path;
 
 public class MainActivityFragment extends Fragment
 {
+    MediaPlayer sounds;
     private String TITLE_URI = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/2000px-English_Pok%C3%A9mon_logo.svg.png";
     private String MASTERBALL_URI = "http://orig13.deviantart.net/41d7/f/2014/103/4/8/master_ball__01__by_adfpf1-d7ea28n.png";
     private String BASE_URL = "http://pokeapi.co/api/v1/";
@@ -57,7 +59,7 @@ public class MainActivityFragment extends Fragment
         title = (ImageView) mainActivityFragment.findViewById(R.id.IVtitle);
         masterBall = (ImageView) mainActivityFragment.findViewById(R.id.IVmasterBall);
 
-        mainVideo.setVideoURI(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.intro));
+        mainVideo.setVideoURI(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.video_intro));
         mainVideo.setMediaController(new MediaController(getContext()));
 
         Picasso.with(getContext()).load(TITLE_URI).fit().into(title);
@@ -151,6 +153,8 @@ public class MainActivityFragment extends Fragment
                 .setPositiveButton("Download", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which)
                     {
+                        sounds = MediaPlayer.create(getContext(), R.raw.sound_download);
+                        sounds.start();
                         deleteDatabase();
                         createRetrofit();
                         downloadPokedex();

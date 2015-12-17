@@ -1,6 +1,7 @@
 package com.casino.uri.androidpokedex;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -22,6 +23,8 @@ import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 
 public class GridViewActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    MediaPlayer music;
+    MediaPlayer sounds;
     PokemonDatabaseAdapter adapter;
     GridView pokedex;
     EditText search;
@@ -30,6 +33,14 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     {
         super.onStart();
         getLoaderManager().restartLoader(0, null, this);
+        music = MediaPlayer.create(getContext(), R.raw.song_pokedex);
+        music.start();
+
+    }
+    public void onStop()
+    {
+        super.onStop();
+        if (music.isPlaying()) {music.stop();}
     }
     public GridViewActivityFragment(){}
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -87,6 +98,8 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         int menu_id = item.getItemId();
         if (menu_id == R.id.item_favorite)
         {
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_favorite);
+            sounds.start();
             addToFavorites(id);
             return true;
         }
@@ -125,6 +138,8 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         int id = item.getItemId();
         if (id == R.id.action_search)
         {
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
+            sounds.start();
             search.setVisibility(View.VISIBLE);
             searchBT.setVisibility(View.VISIBLE);
             return true;
