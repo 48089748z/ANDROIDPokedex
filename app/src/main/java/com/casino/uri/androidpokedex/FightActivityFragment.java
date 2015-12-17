@@ -74,23 +74,19 @@ public class FightActivityFragment extends Fragment
         searchBT.setVisibility(View.INVISIBLE);
         fight.setVisibility(View.INVISIBLE);
 
-        fight.setOnClickListener(new View.OnClickListener()
-        {
+        fight.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 fight.setVisibility(View.INVISIBLE);
-                if (whoWins()==1)
-                {
-                    result.setText(name1.getText()+" WON");
+                if (whoWins() == 1) {
+                    result.setText(name1.getText() + " WON");
                     result.setTextColor(Color.GREEN);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter2);
                     nWon++;
                     sounds = MediaPlayer.create(getContext(), R.raw.sound_won);
                     sounds.start();
                 }
-                if (whoWins() == 2)
-                {
+                if (whoWins() == 2) {
                     result.setText(name1.getText() + " LOST");
                     result.setTextColor(Color.RED);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter1);
@@ -98,27 +94,28 @@ public class FightActivityFragment extends Fragment
                     sounds = MediaPlayer.create(getContext(), R.raw.sound_lost);
                     sounds.start();
                 }
-                if (whoWins() == 0)
-                {
+                if (whoWins() == 0) {
                     result.setText("UNNEFECTIVE TYPES");
                 }
-                won.setText("Won: "+String.valueOf(nWon));
-                lost.setText("Lost: "+String.valueOf(nLost));
+                won.setText("Won: " + String.valueOf(nWon));
+                lost.setText("Lost: " + String.valueOf(nLost));
             }
         });
         searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
-                sounds.start();
-                String pokemonName = search.getText().toString().toLowerCase();
-                String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
-                loadPokemon2(parsedPokemonName);
-                search.setVisibility(View.INVISIBLE);
-                searchBT.setVisibility(View.INVISIBLE);
-                search.setText("");
-                search.setHint("Search Pokemon Enemy by name");
+                try
+                {
+                    String pokemonName = search.getText().toString().toLowerCase();
+                    String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
+                    loadPokemon2(parsedPokemonName);
+                    search.setVisibility(View.INVISIBLE);
+                    searchBT.setVisibility(View.INVISIBLE);
+                    search.setText("");
+                    search.setHint("Search Pokemon Enemy by name");
+                }
+                catch (Exception noName){loadPokemon2(" ");}
             }
         });
         loadPokemon1();
@@ -152,8 +149,14 @@ public class FightActivityFragment extends Fragment
             name2.setText(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
             Picasso.with(getContext()).load(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter2);
             fight.setVisibility(View.VISIBLE);
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
+            sounds.start();
         }
-        catch (Exception nameNotFound) {name2.setText("Not Found");}
+        catch (Exception nameNotFound) {
+            name2.setText("Not Found");
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
+            sounds.start();
+        }
     }
     public boolean onOptionsItemSelected(MenuItem item)
     {

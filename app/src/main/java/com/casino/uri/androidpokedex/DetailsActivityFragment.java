@@ -1,5 +1,6 @@
 package com.casino.uri.androidpokedex;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 public class DetailsActivityFragment extends Fragment
 {
+    MediaPlayer sounds;
+    MediaPlayer music;
     Cursor myCursor = null;
     String pokemonName = null;
     private long grid_id = -1;
@@ -28,6 +31,17 @@ public class DetailsActivityFragment extends Fragment
     TextView created;
     ImageView image;
 
+    public void onStart()
+    {
+        super.onStart();
+        music = MediaPlayer.create(getContext(), R.raw.song_varidian);
+        music.start();
+    }
+    public void onStop()
+    {
+        super.onStop();
+        if (music.isPlaying()) {music.stop();}
+    }
     public DetailsActivityFragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +91,8 @@ public class DetailsActivityFragment extends Fragment
             {
                 name.setText("POKEMON NOT FOUND");
                 Picasso.with(getContext()).load(R.drawable.pokemonnotfound).fit().into(image);
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
+                sounds.start();
             }
         }
         if (pokemonName == null && grid_id == -1 && favorite_id != -1) //LOADS FAVORITE ID
@@ -104,6 +120,8 @@ public class DetailsActivityFragment extends Fragment
             types.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.TYPES)));
             created.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.CREATED)).substring(0, 10));
             Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.IMAGE))).fit().into(image);
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_found);
+            sounds.start();
         }
     }
     public void fillFavorite()
@@ -120,6 +138,8 @@ public class DetailsActivityFragment extends Fragment
             types.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.TYPES)));
             created.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.CREATED)).substring(0, 10));
             Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.IMAGE))).fit().into(image);
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_found);
+            sounds.start();
         }
     }
 }
