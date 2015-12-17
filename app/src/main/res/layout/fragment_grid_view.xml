@@ -18,23 +18,23 @@
 
     <EditText
         android:layout_width="200dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:id="@+id/ETsearch"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textColor="#ffffff"
         android:background="#a09c27b0"
         android:hint="Search Pokemon by name"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:textStyle="normal"
         android:height="45dp"
-        android:layout_toStartOf="@+id/BTsearch"
+        android:layout_toStartOf="@+id/IBsearchFight"
         android:textColorHint="#ffffff" />
 
     <ImageButton
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:id="@+id/BTsearch"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/IBsearchFight"
         android:background="#9C27B0"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"

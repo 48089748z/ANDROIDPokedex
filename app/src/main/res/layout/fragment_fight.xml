@@ -1,0 +1,132 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    tools:showIn="@layout/activity_fight"
+    tools:context="com.casino.uri.androidpokedex.FightActivityFragment"
+    android:background="#000000">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/IVfighter1"
+        android:layout_above="@+id/TVname1"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/IVfighter2"
+        android:layout_above="@+id/TVname2"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVname1"
+        android:textColor="#ffffff"
+        android:textSize="21dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/IBfight"
+        android:layout_alignEnd="@+id/IVfighter1" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVname2"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textSize="21dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/IVfighter1"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/IBfight"
+        android:layout_alignStart="@+id/IVfighter2" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/ETsearchFight"
+        android:textColor="#ffffff"
+        android:background="#a09c27b0"
+        android:hint="Search Pokemon by name"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:height="45dp"
+        android:textColorHint="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/IBsearchFight" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/IBsearchFight"
+        android:background="#9C27B0"
+        android:src="@drawable/ic_check_24"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/IBfight"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="83dp"
+        android:src="@drawable/ic_fight_36"
+        android:background="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LETS BATTLE"
+        android:id="@+id/TVresult"
+        android:layout_below="@+id/ETsearchFight"
+        android:layout_alignEnd="@+id/TVname2"
+        android:textColor="#ffffff"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:id="@+id/IVversus"
+        android:src="@drawable/ic_versus"
+        android:layout_above="@+id/TVname1"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Won: 0"
+        android:id="@+id/TVwon"
+        android:layout_alignBottom="@+id/IBfight"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Lost: 0"
+        android:id="@+id/TVlost"
+        android:layout_alignBottom="@+id/IBfight"
+        android:layout_alignParentEnd="true"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:textAlignment="center" />
+
+</RelativeLayout>

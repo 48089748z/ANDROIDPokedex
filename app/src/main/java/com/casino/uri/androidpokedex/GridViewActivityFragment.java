@@ -1,5 +1,4 @@
 package com.casino.uri.androidpokedex;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -26,13 +25,11 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     PokemonDatabaseAdapter adapter;
     GridView pokedex;
     EditText search;
-    ImageButton searchB;
+    ImageButton searchBT;
     public void onStart()
     {
         super.onStart();
         getLoaderManager().restartLoader(0, null, this);
-        search.setVisibility(View.INVISIBLE);
-        searchB.setVisibility(View.INVISIBLE);
     }
     public GridViewActivityFragment(){}
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -42,7 +39,9 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
 
         pokedex = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
         search = (EditText) gridViewFragment.findViewById(R.id.ETsearch);
-        searchB = (ImageButton) gridViewFragment.findViewById(R.id.BTsearch);
+        searchBT = (ImageButton) gridViewFragment.findViewById(R.id.IBsearchFight);
+        search.setVisibility(View.INVISIBLE);
+        searchBT.setVisibility(View.INVISIBLE);
         adapter = new PokemonDatabaseAdapter(
                 getContext(),
                 R.layout.gridview_layout,
@@ -69,14 +68,14 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
             }
         });
 
-        searchB.setOnClickListener(new View.OnClickListener() {
+        searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String pokemonName = search.getText().toString().toLowerCase();
                 String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
                 searchPokemon(parsedPokemonName);
                 search.setVisibility(View.INVISIBLE);
-                searchB.setVisibility(View.INVISIBLE);
+                searchBT.setVisibility(View.INVISIBLE);
                 search.setText("");
                 search.setHint("Search Pokemon by name");
             }
@@ -93,6 +92,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         }
         if (menu_id == R.id.item_fight)
         {
+            fight(id);
             return true;
         }
         if (menu_id == R.id.item_details)
@@ -126,7 +126,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         if (id == R.id.action_search)
         {
             search.setVisibility(View.VISIBLE);
-            searchB.setVisibility(View.VISIBLE);
+            searchBT.setVisibility(View.VISIBLE);
             return true;
         }
         if (id == R.id.action_favorites)
@@ -154,5 +154,12 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         Intent favoritesActivity = new Intent(getContext(), FavoritesActivity.class);
         favoritesActivity.putExtra("favorite_id", id);
         startActivity(favoritesActivity);
+    }
+    public void fight(long id)
+    {
+        Intent fightActivity = new Intent(getContext(), FightActivity.class);
+        fightActivity.putExtra("fighter1", id);
+        startActivity(fightActivity);
+
     }
 }

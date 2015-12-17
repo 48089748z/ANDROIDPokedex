@@ -45,6 +45,11 @@
             android:label="@string/title_activity_favorites"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".FightActivity"
+            android:label="@string/title_activity_fight"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
