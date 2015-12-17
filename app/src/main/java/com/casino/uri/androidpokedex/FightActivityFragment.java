@@ -76,14 +76,14 @@ public class FightActivityFragment extends Fragment
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter2);
                     nWon++;
                 }
-                else if (whoWins() == 2)
+                if (whoWins() == 2)
                 {
                     result.setText(name2.getText()+" WON");
                     result.setTextColor(Color.RED);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter1);
                     nLost++;
                 }
-                else
+                if (whoWins() == 0)
                 {
                     result.setText("UNNEFECTIVE TYPES");
                 }
@@ -163,6 +163,12 @@ public class FightActivityFragment extends Fragment
     }
     public Integer whoWins()
     {
+        if (types1.toUpperCase().equals(types2.toUpperCase())) return 0;
+
+        //TYPE NORMAL COMBINATIONS
+        if (types2.toUpperCase().contains("NORMAL")) return 1;
+        if (types1.toUpperCase().contains("NORMAL")) return 2;
+
         //TYPE FIRE COMBINATIONS
         if (types1.toUpperCase().contains("FIRE") && types2.toUpperCase().contains("BUG")) return 1;
         if (types1.toUpperCase().contains("FIRE") && types2.toUpperCase().contains("STEEL")) return 1;
@@ -293,8 +299,7 @@ public class FightActivityFragment extends Fragment
         if (types1.toUpperCase().contains("FIGHT") && types2.toUpperCase().contains("FAIRY")) return 2;
         if (types1.toUpperCase().contains("DRAGON") && types2.toUpperCase().contains("FAIRY")) return 2;
 
-        //TYPE NORMAL COMBINATIONS ... NOTHING
         //TYPE DRAGON COMBINATIONS ... NOTHING
-        else return null;
+        return 0;
     }
 }
