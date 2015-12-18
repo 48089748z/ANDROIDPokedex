@@ -85,10 +85,8 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
 
         searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-               try
-               {
+            public void onClick(View v) {
+                try {
                     String pokemonName = search.getText().toString().toLowerCase();
                     String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
                     searchPokemon(parsedPokemonName);
@@ -96,8 +94,9 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                     searchBT.setVisibility(View.INVISIBLE);
                     search.setText("");
                     search.setHint("Search Pokemon by name");
+                } catch (Exception noName) {
+                    searchPokemon(" ");
                 }
-                catch (Exception noName){ searchPokemon(" ");}
             }
         });
         return gridViewFragment;

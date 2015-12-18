@@ -10,16 +10,22 @@
         android:label="Pokedex"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+
+        <provider
+            android:name=".provider.PokemonsProvider"
+            android:authorities="com.pokemons.app.provider"
+            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:label="Pokedex"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".GridViewActivity"
             android:label="@string/title_activity_grid_view"
@@ -30,26 +36,33 @@
                 android:value="com.casino.uri.androidpokedex.MainActivity" />
         </activity>
 
-        <provider
-            android:name=".provider.PokemonsProvider"
-            android:authorities="com.pokemons.app.provider"
-            android:exported="false" />
 
         <activity
             android:name=".DetailsActivity"
             android:label="@string/title_activity_details"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.casino.uri.androidpokedex.GridViewActivity" />
+
         </activity>
         <activity
             android:name=".FavoritesActivity"
             android:label="@string/title_activity_favorites"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.casino.uri.androidpokedex.GridViewActivity" />
         </activity>
         <activity
             android:name=".FightActivity"
             android:label="@string/title_activity_fight"
             android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.casino.uri.androidpokedex.GridViewActivity" />
         </activity>
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -59,6 +72,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.casino.uri.androidpokedex.MainActivity" />
         </activity>
+
     </application>
 
 </manifest>

@@ -50,7 +50,6 @@ public class MainActivityFragment extends Fragment
     {
         super.onStart();
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
-        mainVideo.requestFocus();
         mainVideo.start();
     }
     @Override
@@ -66,9 +65,19 @@ public class MainActivityFragment extends Fragment
 
         mainVideo.setVideoURI(Uri.parse("android.resource://" + getContext().getPackageName() + "/" + R.raw.video_intro));
         mainVideo.setMediaController(new MediaController(getContext()));
+        mainVideo.requestFocus();
 
         Picasso.with(getContext()).load(TITLE_URI).fit().into(title);
         Picasso.with(getContext()).load(MASTERBALL_URI).fit().into(masterBall);
+        mainVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+        {
+            @Override
+            public void onCompletion(MediaPlayer mp)
+            {
+                mainVideo.requestFocus();
+                mainVideo.start();
+            }
+        });
 
         return mainActivityFragment;
     }
@@ -81,7 +90,7 @@ public class MainActivityFragment extends Fragment
     }
     public void downloadPokedex()
     {
-        for (int id=1; id<715; id++) //Loading only 12 Pokemons for Testing
+        for (int id=1; id<715; id++)
         {
             Call<Pokemon> call = service.getPokemon(id);
             call.enqueue(new Callback<Pokemon>()

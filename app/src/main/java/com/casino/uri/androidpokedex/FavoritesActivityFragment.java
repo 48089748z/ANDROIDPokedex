@@ -78,19 +78,22 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 PokemonColumns._ID + " = ?",
                 new String[]{String.valueOf(id)},
                 "_id");
-        myCursor.moveToNext();
-        FavoriteContentValues values = new FavoriteContentValues();
-        values.putPkdxId(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.PKDX_ID)));
-        values.putName(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.NAME)));
-        values.putSpatk(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.SPATK)));
-        values.putSpdef(  myCursor.getString(myCursor.getColumnIndex(PokemonColumns.SPDEF)));
-        values.putWeight(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.WEIGHT)));
-        values.putHp(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.HP)));
-        values.putCreated(  myCursor.getString(myCursor.getColumnIndex(PokemonColumns.CREATED)));
-        values.putModified(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.MODIFIED)));
-        values.putTypes(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.TYPES)));
-        values.putImage(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.IMAGE)));
-        getContext().getContentResolver().insert(FavoriteColumns.CONTENT_URI, values.values());
+        if (myCursor != null)
+        {
+            myCursor.moveToNext();
+            FavoriteContentValues values = new FavoriteContentValues();
+            values.putPkdxId(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.PKDX_ID)));
+            values.putName(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.NAME)));
+            values.putSpatk(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.SPATK)));
+            values.putSpdef(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.SPDEF)));
+            values.putWeight(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.WEIGHT)));
+            values.putHp(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.HP)));
+            values.putCreated(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.CREATED)));
+            values.putModified(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.MODIFIED)));
+            values.putTypes(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.TYPES)));
+            values.putImage(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.IMAGE)));
+            getContext().getContentResolver().insert(FavoriteColumns.CONTENT_URI, values.values());
+        }
     }
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args)

@@ -17,9 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.squareup.picasso.Picasso;
+
 
 public class FightActivityFragment extends Fragment
 {
@@ -114,10 +114,8 @@ public class FightActivityFragment extends Fragment
         });
         searchBT.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                try
-                {
+            public void onClick(View v) {
+                try {
                     String pokemonName = search.getText().toString().toLowerCase();
                     String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
                     loadPokemon2(parsedPokemonName);
@@ -125,8 +123,9 @@ public class FightActivityFragment extends Fragment
                     searchBT.setVisibility(View.INVISIBLE);
                     search.setText("");
                     search.setHint("Search Pokemon Enemy by name");
+                } catch (Exception noName) {
+                    loadPokemon2(" ");
                 }
-                catch (Exception noName){loadPokemon2(" ");}
             }
         });
         loadPokemon1();
@@ -140,10 +139,13 @@ public class FightActivityFragment extends Fragment
                 PokemonColumns._ID + " = ?",
                 new String[]{String.valueOf(id_fighter1)},
                 "_id");
-        myCursor1.moveToNext();
-        types1 = myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
-        name1.setText(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
-        Picasso.with(getContext()).load(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter1);
+        if (myCursor1 != null)
+        {
+            myCursor1.moveToNext();
+            types1 = myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
+            name1.setText(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
+            Picasso.with(getContext()).load(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter1);
+        }
     }
     public void loadPokemon2(String pokemonName)
     {
@@ -155,12 +157,16 @@ public class FightActivityFragment extends Fragment
                     PokemonColumns.NAME + " = ?",
                     new String[]{String.valueOf(pokemonName)},
                     "_id");
-            myCursor2.moveToNext();
-            types2 = myCursor2.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
-            name2.setText(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
-            Picasso.with(getContext()).load(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter2);
-            fight.setVisibility(View.VISIBLE);
-            if (myPreferences.getBoolean("soundsON", true)) {
+            if (myCursor2 != null)
+            {
+                myCursor2.moveToNext();
+                types2 = myCursor2.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
+                name2.setText(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
+                Picasso.with(getContext()).load(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter2);
+                fight.setVisibility(View.VISIBLE);
+            }
+            if (myPreferences.getBoolean("soundsON", true))
+            {
                 sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
                 sounds.start();
             }
