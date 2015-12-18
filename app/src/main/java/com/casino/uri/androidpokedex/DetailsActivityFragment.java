@@ -1,4 +1,7 @@
 package com.casino.uri.androidpokedex;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
@@ -15,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 public class DetailsActivityFragment extends Fragment
 {
+    SharedPreferences myPreferences;
     MediaPlayer sounds;
     MediaPlayer music;
     Cursor myCursor = null;
@@ -34,8 +38,10 @@ public class DetailsActivityFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        music = MediaPlayer.create(getContext(), R.raw.song_varidian);
-        music.start();
+        if (myPreferences.getBoolean("musicON", true))
+        {
+            music.start();
+        }
     }
     public void onStop()
     {
@@ -47,6 +53,7 @@ public class DetailsActivityFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View detailsActivityFragment = inflater.inflate(R.layout.fragment_details, container, false);
 
+        myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         name = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsName);
         pkdx_id = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsId);
         hp = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsHp);
@@ -56,6 +63,7 @@ public class DetailsActivityFragment extends Fragment
         types = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsTypes);
         created = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsCreated);
         image = (ImageView) detailsActivityFragment.findViewById(R.id.IVdetailsImage);
+        music = MediaPlayer.create(getContext(), R.raw.song_varidian);
 
         pokemonName = getActivity().getIntent().getStringExtra("pokemonName");
         grid_id = getActivity().getIntent().getLongExtra("grid_id", -1);
@@ -91,8 +99,12 @@ public class DetailsActivityFragment extends Fragment
             {
                 name.setText("POKEMON NOT FOUND");
                 Picasso.with(getContext()).load(R.drawable.pokemonnotfound).fit().into(image);
-                sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
-                sounds.start();
+                if (myPreferences.getBoolean("soundsON", true))
+                {
+                    sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
+                    sounds.start();
+                }
+
             }
         }
         if (pokemonName == null && grid_id == -1 && favorite_id != -1) //LOADS FAVORITE ID
@@ -120,8 +132,7 @@ public class DetailsActivityFragment extends Fragment
             types.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.TYPES)));
             created.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.CREATED)).substring(0, 10));
             Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.IMAGE))).fit().into(image);
-            sounds = MediaPlayer.create(getContext(), R.raw.sound_found);
-            sounds.start();
+            soundFound();
         }
     }
     public void fillFavorite()
@@ -138,6 +149,13 @@ public class DetailsActivityFragment extends Fragment
             types.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.TYPES)));
             created.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.CREATED)).substring(0, 10));
             Picasso.with(getContext()).load(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.IMAGE))).fit().into(image);
+            soundFound();
+        }
+    }
+    public void soundFound()
+    {
+        if (myPreferences.getBoolean("soundsON", true))
+        {
             sounds = MediaPlayer.create(getContext(), R.raw.sound_found);
             sounds.start();
         }

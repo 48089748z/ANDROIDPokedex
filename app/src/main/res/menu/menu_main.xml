@@ -1,14 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_open"
-        android:title="Open Pokedex"
-        android:orderInCategory="100"
-        android:icon="@drawable/ic_showpokedex_24"
-        app:showAsAction="ifRoom" />
     <item android:id="@+id/action_refresh"
         android:title="Refresh (Wifi only)"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_refresh_24"/>
+    <item android:id="@+id/action_settings"
+        android:title="Settings"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_settings_24"
+        app:showAsAction="ifRoom" />
 </menu>

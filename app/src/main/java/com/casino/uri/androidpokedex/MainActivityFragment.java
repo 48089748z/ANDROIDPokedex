@@ -1,7 +1,9 @@
 package com.casino.uri.androidpokedex;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -32,6 +34,7 @@ import retrofit.http.Path;
 public class MainActivityFragment extends Fragment
 {
     MediaPlayer sounds;
+    SharedPreferences myPreferences;
     private String TITLE_URI = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/2000px-English_Pok%C3%A9mon_logo.svg.png";
     private String MASTERBALL_URI = "http://orig13.deviantart.net/41d7/f/2014/103/4/8/master_ball__01__by_adfpf1-d7ea28n.png";
     private String BASE_URL = "http://pokeapi.co/api/v1/";
@@ -46,6 +49,7 @@ public class MainActivityFragment extends Fragment
     public void onStart()
     {
         super.onStart();
+        myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         mainVideo.requestFocus();
         mainVideo.start();
     }
@@ -55,6 +59,7 @@ public class MainActivityFragment extends Fragment
         View mainActivityFragment = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
 
+        myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         mainVideo = (VideoView) mainActivityFragment.findViewById(R.id.VVmainVideo);
         title = (ImageView) mainActivityFragment.findViewById(R.id.IVtitle);
         masterBall = (ImageView) mainActivityFragment.findViewById(R.id.IVmasterBall);
@@ -133,10 +138,10 @@ public class MainActivityFragment extends Fragment
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-        if (id == R.id.action_open)
+        if (id == R.id.action_settings)
         {
-            Intent gridViewActivity = new Intent(getContext(), GridViewActivity.class);
-            startActivity(gridViewActivity);
+            Intent settingsActivity = new Intent(getContext(), SettingsActivity.class);
+            startActivity(settingsActivity);
         }
         if (id == R.id.action_refresh)
         {

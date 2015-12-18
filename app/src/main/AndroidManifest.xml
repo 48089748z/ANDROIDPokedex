@@ -50,6 +50,15 @@
             android:label="@string/title_activity_fight"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.casino.uri.androidpokedex.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

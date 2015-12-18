@@ -1,8 +1,10 @@
 package com.casino.uri.androidpokedex;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,7 @@ import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 
 public class FavoritesActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    SharedPreferences myPreferences;
     MediaPlayer music;
     MediaPlayer sounds;
     Cursor myCursor;
@@ -37,6 +40,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
         View favoritesActivityFragment = inflater.inflate(R.layout.fragment_favorites, container, false);
         setHasOptionsMenu(true);
         favorites = (GridView) favoritesActivityFragment.findViewById(R.id.GVfavorites);
+        music = MediaPlayer.create(getContext(), R.raw.song_healing);
         adapter = new PokemonDatabaseAdapter(
                 getContext(),
                 R.layout.gridview_layout,
@@ -47,8 +51,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
         favorites.setAdapter(adapter);
         favorites.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 deleteSelected(id);
                 return false;
             }
@@ -107,8 +110,11 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
     {
         super.onStart();
         getLoaderManager().restartLoader(0, null, this);
-        music = MediaPlayer.create(getContext(), R.raw.song_healing);
-        music.start();
+        myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        if (myPreferences.getBoolean("musicON", true))
+        {
+            music.start();
+        }
     }
     public void onStop()
     {
@@ -138,13 +144,16 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 .setPositiveButton("Delete All", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        sounds = MediaPlayer.create(getContext(), R.raw.sound_favorites_deleted);
-                        sounds.start();
+                        if (myPreferences.getBoolean("soundsON", true)) {
+                            sounds = MediaPlayer.create(getContext(), R.raw.sound_favorites_deleted);
+                            sounds.start();
+                        }
                         deleteDatabase();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which){}
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
                 })
                 .setIcon(R.drawable.ic_alert_48)
                 .show();

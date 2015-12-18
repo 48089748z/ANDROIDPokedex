@@ -1,5 +1,7 @@
 package com.casino.uri.androidpokedex;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -18,11 +20,11 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 
 public class GridViewActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    SharedPreferences myPreferences;
     MediaPlayer music;
     MediaPlayer sounds;
     PokemonDatabaseAdapter adapter;
@@ -33,9 +35,11 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     {
         super.onStart();
         getLoaderManager().restartLoader(0, null, this);
-        music = MediaPlayer.create(getContext(), R.raw.song_pokedex);
-        music.start();
-
+        myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        if (myPreferences.getBoolean("musicON", true))
+        {
+            music.start();
+        }
     }
     public void onStop()
     {
@@ -51,6 +55,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         pokedex = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
         search = (EditText) gridViewFragment.findViewById(R.id.ETsearch);
         searchBT = (ImageButton) gridViewFragment.findViewById(R.id.IBsearchFight);
+        music = MediaPlayer.create(getContext(), R.raw.song_pokedex);
         search.setVisibility(View.INVISIBLE);
         searchBT.setVisibility(View.INVISIBLE);
         adapter = new PokemonDatabaseAdapter(
@@ -69,8 +74,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 popupMenu.inflate(R.menu.menu_popup);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item)
-                    {
+                    public boolean onMenuItemClick(MenuItem item) {
                         checkSelected(item, id);
                         return false;
                     }
@@ -103,8 +107,11 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         int menu_id = item.getItemId();
         if (menu_id == R.id.item_favorite)
         {
-            sounds = MediaPlayer.create(getContext(), R.raw.sound_favorite);
-            sounds.start();
+            if (myPreferences.getBoolean("soundsON", true))
+            {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_favorite);
+                sounds.start();
+            }
             addToFavorites(id);
             return true;
         }
@@ -143,8 +150,10 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         int id = item.getItemId();
         if (id == R.id.action_search)
         {
-            sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
-            sounds.start();
+            if (myPreferences.getBoolean("soundsON", true)) {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
+                sounds.start();
+            }
             search.setVisibility(View.VISIBLE);
             searchBT.setVisibility(View.VISIBLE);
             return true;
@@ -180,6 +189,5 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         Intent fightActivity = new Intent(getContext(), FightActivity.class);
         fightActivity.putExtra("fighter1", id);
         startActivity(fightActivity);
-
     }
 }

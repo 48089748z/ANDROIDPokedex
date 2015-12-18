@@ -1,5 +1,7 @@
 package com.casino.uri.androidpokedex;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -21,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 public class FightActivityFragment extends Fragment
 {
+    SharedPreferences myPreferences;
     MediaPlayer music;
     MediaPlayer sounds;
     TextView won;
@@ -44,8 +47,11 @@ public class FightActivityFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        music = MediaPlayer.create(getContext(), R.raw.song_battle);
-        music.start();
+        myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        if (myPreferences.getBoolean("musicON", true))
+        {
+            music.start();
+        }
     }
     public void onStop()
     {
@@ -68,6 +74,7 @@ public class FightActivityFragment extends Fragment
         lost = (TextView) fightActivity.findViewById(R.id.TVlost);
         search = (EditText) fightActivity.findViewById(R.id.ETsearchFight);
         searchBT = (ImageButton) fightActivity.findViewById(R.id.IBsearchFight);
+        music = MediaPlayer.create(getContext(), R.raw.song_battle);
         won.setTextColor(Color.GREEN);
         lost.setTextColor(Color.RED);
         search.setVisibility(View.INVISIBLE);
@@ -83,16 +90,20 @@ public class FightActivityFragment extends Fragment
                     result.setTextColor(Color.GREEN);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter2);
                     nWon++;
-                    sounds = MediaPlayer.create(getContext(), R.raw.sound_won);
-                    sounds.start();
+                    if (myPreferences.getBoolean("soundsON", true)) {
+                        sounds = MediaPlayer.create(getContext(), R.raw.sound_won);
+                        sounds.start();
+                    }
                 }
                 if (whoWins() == 2) {
                     result.setText(name1.getText() + " LOST");
                     result.setTextColor(Color.RED);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter1);
                     nLost++;
-                    sounds = MediaPlayer.create(getContext(), R.raw.sound_lost);
-                    sounds.start();
+                    if (myPreferences.getBoolean("soundsON", true)) {
+                        sounds = MediaPlayer.create(getContext(), R.raw.sound_lost);
+                        sounds.start();
+                    }
                 }
                 if (whoWins() == 0) {
                     result.setText("UNNEFECTIVE TYPES");
@@ -149,13 +160,17 @@ public class FightActivityFragment extends Fragment
             name2.setText(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
             Picasso.with(getContext()).load(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter2);
             fight.setVisibility(View.VISIBLE);
-            sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
-            sounds.start();
+            if (myPreferences.getBoolean("soundsON", true)) {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
+                sounds.start();
+            }
         }
         catch (Exception nameNotFound) {
             name2.setText("Not Found");
-            sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
-            sounds.start();
+            if (myPreferences.getBoolean("soundsON", true)) {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
+                sounds.start();
+            }
         }
     }
     public boolean onOptionsItemSelected(MenuItem item)
@@ -163,8 +178,10 @@ public class FightActivityFragment extends Fragment
         int id = item.getItemId();
         if (id == R.id.action_search)
         {
-            sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
-            sounds.start();
+            if (myPreferences.getBoolean("soundsON", true)) {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
+                sounds.start();
+            }
             search.setVisibility(View.VISIBLE);
             searchBT.setVisibility(View.VISIBLE);
             fight.setVisibility(View.INVISIBLE);
