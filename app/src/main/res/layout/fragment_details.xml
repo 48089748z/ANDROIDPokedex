@@ -1,12 +1,17 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="#000000">
 
 <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
@@ -31,21 +36,22 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="center"
         android:textSize="44dp"
-        android:textStyle="bold" />
+        android:textStyle="bold|italic" />
 
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/add"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:layout_below="@+id/TVdetailsSpacer"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsHp"
         android:textSize="20dp"
-        android:textAlignment="textStart"/>
+        android:textAlignment="textStart"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -56,7 +62,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/TVdetailsName"
         android:textStyle="bold"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textSize="20dp"/>
 
     <TextView
@@ -66,9 +72,10 @@
         android:layout_below="@+id/add"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsSpacer"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="textStart"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="150dp"
@@ -77,9 +84,10 @@
         android:layout_below="@+id/TVdetailsHp"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsHp"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="textStart"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="150dp"
@@ -88,9 +96,10 @@
         android:layout_below="@+id/TVdetailsWeight"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsSpDef"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="textStart"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="150dp"
@@ -99,9 +108,10 @@
         android:layout_below="@+id/TVdetailsSpAtk"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsCreated"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="textStart"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="150dp"
@@ -110,9 +120,10 @@
         android:layout_below="@+id/TVdetailsSpDef"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsTypes"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="textStart"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="150dp"
@@ -121,9 +132,10 @@
         android:layout_below="@+id/TVdetailsCreated"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsHp"
-        android:textColor="#ffffff"
+        android:textColor="#04ff00"
         android:textAlignment="textStart"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -134,8 +146,8 @@
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/add"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -143,11 +155,11 @@
         android:text="  Lifepoints:"
         android:id="@+id/textView2"
         android:textSize="20dp"
-        android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_below="@+id/add"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/add" />
+        android:layout_toStartOf="@+id/add"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -155,11 +167,11 @@
         android:text="  Weight:"
         android:id="@+id/textView3"
         android:textSize="20dp"
-        android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_below="@+id/TVdetailsHp"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/TVdetailsWeight" />
+        android:layout_toStartOf="@+id/TVdetailsWeight"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -167,11 +179,11 @@
         android:text="  Special Attack:"
         android:id="@+id/textView4"
         android:textSize="20dp"
-        android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_alignTop="@+id/TVdetailsSpAtk"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/TVdetailsSpAtk" />
+        android:layout_toStartOf="@+id/TVdetailsSpAtk"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -179,11 +191,11 @@
         android:text="  Special Defense:"
         android:id="@+id/textView5"
         android:textSize="20dp"
-        android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_below="@+id/TVdetailsSpAtk"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/TVdetailsSpAtk" />
+        android:layout_toStartOf="@+id/TVdetailsSpAtk"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -191,11 +203,11 @@
         android:text="  Created on:"
         android:id="@+id/textView6"
         android:textSize="20dp"
-        android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_alignTop="@+id/TVdetailsCreated"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/TVdetailsCreated" />
+        android:layout_toStartOf="@+id/TVdetailsCreated"
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -203,7 +215,7 @@
         android:text="  Types:"
         android:id="@+id/textView7"
         android:textSize="20dp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         android:textColor="#ffffff"
         android:layout_alignTop="@+id/TVdetailsTypes"
         android:layout_alignParentStart="true"
