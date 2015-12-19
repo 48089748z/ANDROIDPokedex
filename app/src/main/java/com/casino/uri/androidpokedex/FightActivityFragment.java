@@ -7,25 +7,37 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.casino.uri.androidpokedex.com.pojos.Pokemon;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class FightActivityFragment extends Fragment
 {
+    ArrayList<Pokemon> items = new ArrayList<>();
+    PokemonAdapterLV LVadapter;
+    ListView autoCompleteLV;
     SharedPreferences myPreferences;
     MediaPlayer music;
     MediaPlayer sounds;
+    TextView results;
     TextView won;
     TextView lost;
     Integer nWon = 0;
@@ -64,6 +76,9 @@ public class FightActivityFragment extends Fragment
         View fightActivity = inflater.inflate(R.layout.fragment_fight, container, false);
         setHasOptionsMenu(true);
         id_fighter1 = getActivity().getIntent().getLongExtra("fighter1", -1);
+
+        results = (TextView) fightActivity.findViewById(R.id.TVresults);
+        autoCompleteLV = (ListView) fightActivity.findViewById(R.id.LVautocomplete);
         result = (TextView) fightActivity.findViewById(R.id.TVresult);
         fight = (ImageButton) fightActivity.findViewById(R.id.IBfight);
         fighter1 = (ImageView) fightActivity.findViewById(R.id.IVfighter1);
@@ -128,8 +143,46 @@ public class FightActivityFragment extends Fragment
                 }
             }
         });
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {autocomplete();}
+        });
+        LVadapter = new PokemonAdapterLV(getContext(), 0, items);
+        autoCompleteLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pokemon clicked = (Pokemon) autoCompleteLV.getItemAtPosition(position);
+                search.setText(clicked.getName());
+            }
+        });
+        autoCompleteLV.setAdapter(LVadapter);
         loadPokemon1();
         return fightActivity;
+    }
+    public void autocomplete() {
+        LVadapter.clear();
+        results.setText("");
+        Cursor autocompleteCursor = getContext().getContentResolver().query(
+                PokemonColumns.CONTENT_URI,
+                null,
+                PokemonColumns.NAME + " LIKE ?",
+                new String[]{search.getText().toString() + "%"},
+                "_id");
+
+        if (autocompleteCursor.getCount() != 0 && autocompleteCursor.getCount() < 300) {
+            results.setText(String.valueOf(autocompleteCursor.getCount())+" Results ");
+            for (int x = 0; x < autocompleteCursor.getCount(); x++) {
+                autocompleteCursor.moveToNext();
+                Pokemon toAdd = new Pokemon();
+                toAdd.setName(autocompleteCursor.getString(autocompleteCursor.getColumnIndex(PokemonColumns.NAME)));
+                toAdd.setEvYield(autocompleteCursor.getString(autocompleteCursor.getColumnIndex(PokemonColumns.IMAGE)));
+                LVadapter.add(toAdd);
+            }
+        }
     }
     public void loadPokemon1()
     {
@@ -139,7 +192,7 @@ public class FightActivityFragment extends Fragment
                 PokemonColumns._ID + " = ?",
                 new String[]{String.valueOf(id_fighter1)},
                 "_id");
-        if (myCursor1 != null)
+        if (myCursor1.getCount()!=0)
         {
             myCursor1.moveToNext();
             types1 = myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
@@ -157,7 +210,7 @@ public class FightActivityFragment extends Fragment
                     PokemonColumns.NAME + " = ?",
                     new String[]{String.valueOf(pokemonName)},
                     "_id");
-            if (myCursor2 != null)
+            if (myCursor2.getCount()!=0)
             {
                 myCursor2.moveToNext();
                 types2 = myCursor2.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));

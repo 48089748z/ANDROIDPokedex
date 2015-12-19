@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,16 +21,26 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
+
+import com.casino.uri.androidpokedex.com.pojos.Pokemon;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
+
+import java.util.ArrayList;
 
 public class GridViewActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    ArrayList<Pokemon> items = new ArrayList<>();
     SharedPreferences myPreferences;
     MediaPlayer music;
     MediaPlayer sounds;
-    PokemonDatabaseAdapter adapter;
-    GridView pokedex;
+    PokemonDatabaseAdapterGV GVadapter;
+    PokemonAdapterLV LVadapter;
+    GridView pokedexGV;
+    ListView autoCompleteLV;
+    TextView results;
     EditText search;
     ImageButton searchBT;
     public void onStart()
@@ -52,22 +64,23 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         final View gridViewFragment = inflater.inflate(R.layout.fragment_grid_view, container, false);
         setHasOptionsMenu(true);
 
-        pokedex = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
+        results = (TextView) gridViewFragment.findViewById(R.id.TVresults);
+        autoCompleteLV = (ListView) gridViewFragment.findViewById(R.id.LVautocomplete);
+        pokedexGV = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
         search = (EditText) gridViewFragment.findViewById(R.id.ETsearch);
         searchBT = (ImageButton) gridViewFragment.findViewById(R.id.IBsearchFight);
         music = MediaPlayer.create(getContext(), R.raw.song_pokedex);
         search.setVisibility(View.INVISIBLE);
         searchBT.setVisibility(View.INVISIBLE);
-        adapter = new PokemonDatabaseAdapter(
+        GVadapter = new PokemonDatabaseAdapterGV(
                 getContext(),
                 R.layout.gridview_layout,
                 null,
                 new String[] { PokemonColumns.NAME, PokemonColumns.IMAGE },
                 new int[] { R.id.TVname, R.id.IVimage},
                 0);
-
-        pokedex.setAdapter(adapter);
-        pokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pokedexGV.setAdapter(GVadapter);
+        pokedexGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
                 PopupMenu popupMenu = new PopupMenu(getContext(), view);
@@ -99,7 +112,56 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 }
             }
         });
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                autocomplete();
+            }
+        });
+        LVadapter = new PokemonAdapterLV(getContext(), 0, items);
+        autoCompleteLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Pokemon clicked = (Pokemon) autoCompleteLV.getItemAtPosition(position);
+                search.setText(clicked.getName());
+            }
+        });
+        autoCompleteLV.setAdapter(LVadapter);
         return gridViewFragment;
+    }
+    public void autocomplete()
+    {
+        LVadapter.clear();
+        results.setText("");
+        Cursor autocompleteCursor = getContext().getContentResolver().query(
+                PokemonColumns.CONTENT_URI,
+                null,
+                PokemonColumns.NAME+" LIKE ?",
+                new String[]{search.getText().toString()+"%"},
+                "_id");
+
+        if (autocompleteCursor.getCount()!=0 && autocompleteCursor.getCount()<150)
+        {
+            results.setText(String.valueOf(autocompleteCursor.getCount())+" Results ");
+            for (int x=0; x<autocompleteCursor.getCount(); x++)
+            {
+                autocompleteCursor.moveToNext();
+                Pokemon toAdd = new Pokemon();
+                toAdd.setName(autocompleteCursor.getString(autocompleteCursor.getColumnIndex(PokemonColumns.NAME)));
+                toAdd.setEvYield(autocompleteCursor.getString(autocompleteCursor.getColumnIndex(PokemonColumns.IMAGE)));
+                LVadapter.add(toAdd);
+            }
+        }
     }
     public boolean checkSelected(MenuItem item, long id)
     {
@@ -136,9 +198,11 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 "_id");
     }
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {adapter.swapCursor(data);}
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        GVadapter.swapCursor(data);}
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {adapter.swapCursor(null);}
+    public void onLoaderReset(Loader<Cursor> loader) {
+        GVadapter.swapCursor(null);}
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
         super.onCreateOptionsMenu(menu, inflater);

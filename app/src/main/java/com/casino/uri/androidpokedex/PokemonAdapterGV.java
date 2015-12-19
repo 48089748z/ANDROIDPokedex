@@ -12,10 +12,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class PokemonAdapter extends ArrayAdapter<Pokemon>
+public class PokemonAdapterGV extends ArrayAdapter<Pokemon>
 {
     final private String IMAGE_BASE_URL = "http://pokeapi.co/media/img/";
-    public PokemonAdapter(Context context, int resource, List<Pokemon> objects)
+    public PokemonAdapterGV(Context context, int resource, List<Pokemon> objects)
     {
         super(context, resource, objects);
     }

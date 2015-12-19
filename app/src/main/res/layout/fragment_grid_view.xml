@@ -26,7 +26,7 @@
         android:background="#a09c27b0"
         android:hint="Search Pokemon by name"
         android:textSize="20dp"
-        android:textStyle="normal"
+        android:textStyle="normal|bold"
         android:height="45dp"
         android:layout_toStartOf="@+id/IBsearchFight"
         android:textColorHint="#ffffff" />
@@ -39,5 +39,27 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_check_24"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LVautocomplete"
+        android:layout_below="@+id/ETsearch"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/IBsearchFight"
+        android:background="#a09c27b0"
+        android:textAlignment="textStart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/TVresults"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/IBsearchFight"
+        android:layout_above="@+id/LVautocomplete"
+        android:textColor="#26ff00"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textAlignment="textEnd" />
 
 </RelativeLayout>

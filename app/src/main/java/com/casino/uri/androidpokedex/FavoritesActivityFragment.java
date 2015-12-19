@@ -32,7 +32,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
     Cursor myCursor;
     long cursor_id = -1;
     GridView favorites;
-    PokemonDatabaseAdapter adapter;
+    PokemonDatabaseAdapterGV adapter;
     public FavoritesActivityFragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -41,7 +41,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
         setHasOptionsMenu(true);
         favorites = (GridView) favoritesActivityFragment.findViewById(R.id.GVfavorites);
         music = MediaPlayer.create(getContext(), R.raw.song_healing);
-        adapter = new PokemonDatabaseAdapter(
+        adapter = new PokemonDatabaseAdapterGV(
                 getContext(),
                 R.layout.gridview_layout,
                 null,
@@ -78,7 +78,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 PokemonColumns._ID + " = ?",
                 new String[]{String.valueOf(id)},
                 "_id");
-        if (myCursor != null)
+        if (myCursor.getCount()!=0)
         {
             myCursor.moveToNext();
             FavoriteContentValues values = new FavoriteContentValues();

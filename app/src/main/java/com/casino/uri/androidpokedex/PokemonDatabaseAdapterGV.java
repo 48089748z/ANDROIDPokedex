@@ -13,11 +13,11 @@ import android.widget.TextView;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.squareup.picasso.Picasso;
 
-public class PokemonDatabaseAdapter extends SimpleCursorAdapter
+public class PokemonDatabaseAdapterGV extends SimpleCursorAdapter
 {
     Context context;
 
-    public PokemonDatabaseAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+    public PokemonDatabaseAdapterGV(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, from, to, flags);
         this.context = context;
     }

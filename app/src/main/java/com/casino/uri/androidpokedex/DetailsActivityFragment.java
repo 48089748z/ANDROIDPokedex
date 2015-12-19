@@ -120,7 +120,7 @@ public class DetailsActivityFragment extends Fragment
     }
     public void fillPokemon()
     {
-        if (myCursor != null)
+        if (myCursor.getCount() != 0)
         {
             myCursor.moveToNext();
             name.setText(myCursor.getString(myCursor.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
@@ -137,7 +137,7 @@ public class DetailsActivityFragment extends Fragment
     }
     public void fillFavorite()
     {
-        if (myCursor != null)
+        if (myCursor.getCount() != 0)
         {
             myCursor.moveToNext();
             name.setText(myCursor.getString(myCursor.getColumnIndex(FavoriteColumns.NAME)).toUpperCase());
