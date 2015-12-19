@@ -1,5 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="0dp"
@@ -21,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="New Text"
         android:id="@+id/TVdetailsName"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
@@ -34,7 +39,7 @@
     <TextView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:id="@+id/TVdetailsId"
+        android:id="@+id/add"
         android:textColor="#ffffff"
         android:layout_below="@+id/TVdetailsSpacer"
         android:layout_alignParentStart="false"
@@ -58,7 +63,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/TVdetailsHp"
-        android:layout_below="@+id/TVdetailsId"
+        android:layout_below="@+id/add"
         android:layout_alignParentStart="false"
         android:layout_alignEnd="@+id/TVdetailsSpacer"
         android:textColor="#ffffff"
@@ -125,9 +130,9 @@
         android:layout_height="wrap_content"
         android:text="  ID:"
         android:id="@+id/textView"
-        android:layout_alignTop="@+id/TVdetailsId"
+        android:layout_alignTop="@+id/add"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/TVdetailsId"
+        android:layout_toStartOf="@+id/add"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="#ffffff" />
@@ -140,9 +145,9 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="#ffffff"
-        android:layout_below="@+id/TVdetailsId"
+        android:layout_below="@+id/add"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/TVdetailsId" />
+        android:layout_toStartOf="@+id/add" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -204,3 +209,4 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/textView6" />
 </RelativeLayout>
+</ScrollView>

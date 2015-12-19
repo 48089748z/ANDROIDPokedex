@@ -55,7 +55,7 @@ public class DetailsActivityFragment extends Fragment
 
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         name = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsName);
-        pkdx_id = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsId);
+        pkdx_id = (TextView) detailsActivityFragment.findViewById(R.id.add);
         hp = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsHp);
         weight = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsWeight);
         spAtk = (TextView) detailsActivityFragment.findViewById(R.id.TVdetailsSpAtk);

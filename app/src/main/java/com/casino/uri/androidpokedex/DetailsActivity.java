@@ -15,8 +15,16 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        try
+        {
+            toolbar.setTitle("POKEMON DETAILS");
+            setSupportActionBar(toolbar);
+        }
+        catch (Exception e){}
         toolbar.setTitle("POKEMON DETAILS");
         setSupportActionBar(toolbar);
+
+
     }
 
 }

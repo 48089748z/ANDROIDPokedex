@@ -53,7 +53,6 @@ public class FightActivityFragment extends Fragment
     ImageView fighter2;
     TextView name1;
     TextView name2;
-    TextView result;
     long id_fighter1 = -1;
 
     public void onStart()
@@ -79,7 +78,6 @@ public class FightActivityFragment extends Fragment
 
         results = (TextView) fightActivity.findViewById(R.id.TVresults);
         autoCompleteLV = (ListView) fightActivity.findViewById(R.id.LVautocomplete);
-        result = (TextView) fightActivity.findViewById(R.id.TVresult);
         fight = (ImageButton) fightActivity.findViewById(R.id.IBfight);
         fighter1 = (ImageView) fightActivity.findViewById(R.id.IVfighter1);
         fighter2 = (ImageView) fightActivity.findViewById(R.id.IVfighter2);
@@ -101,8 +99,6 @@ public class FightActivityFragment extends Fragment
             public void onClick(View v) {
                 fight.setVisibility(View.INVISIBLE);
                 if (whoWins() == 1) {
-                    result.setText(name1.getText() + " WON");
-                    result.setTextColor(Color.GREEN);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter2);
                     nWon++;
                     if (myPreferences.getBoolean("soundsON", true)) {
@@ -111,17 +107,12 @@ public class FightActivityFragment extends Fragment
                     }
                 }
                 if (whoWins() == 2) {
-                    result.setText(name1.getText() + " LOST");
-                    result.setTextColor(Color.RED);
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter1);
                     nLost++;
                     if (myPreferences.getBoolean("soundsON", true)) {
                         sounds = MediaPlayer.create(getContext(), R.raw.sound_lost);
                         sounds.start();
                     }
-                }
-                if (whoWins() == 0) {
-                    result.setText("UNNEFECTIVE TYPES");
                 }
                 won.setText("Won: " + String.valueOf(nWon));
                 lost.setText("Lost: " + String.valueOf(nLost));
@@ -248,8 +239,6 @@ public class FightActivityFragment extends Fragment
             Picasso.with(getContext()).load(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter1);
             Picasso.with(getContext()).load(R.drawable.empty).fit().into(fighter2);
             name2.setText("");
-            result.setTextColor(Color.WHITE);
-            result.setText("LETS BATTLE");
             return true;
         }
         return super.onOptionsItemSelected(item);

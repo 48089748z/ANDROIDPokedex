@@ -14,7 +14,8 @@
         android:id="@+id/GVpokedex"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:numColumns="3" />
+        android:numColumns="auto_fit"
+        android:columnWidth="100dp"/>
 
     <EditText
         android:layout_width="200dp"

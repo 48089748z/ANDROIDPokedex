@@ -15,5 +15,6 @@
         android:id="@+id/GVfavorites"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:numColumns="3" />
+        android:numColumns="auto_fit"
+        android:columnWidth="100dp"/>
 </RelativeLayout>

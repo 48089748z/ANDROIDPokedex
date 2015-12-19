@@ -253,4 +253,5 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         fightActivity.putExtra("fighter1", id);
         startActivity(fightActivity);
     }
+
 }
