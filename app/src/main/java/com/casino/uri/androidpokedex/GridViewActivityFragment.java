@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 public class GridViewActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    OnPokemonSelectedListener listener;
     ArrayList<Pokemon> items = new ArrayList<>();
     SharedPreferences myPreferences;
     MediaPlayer music;
@@ -236,9 +237,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     }
     public void showDetails(long id)
     {
-        Intent pokemonDetails = new Intent(getContext(), DetailsActivity.class);
-        pokemonDetails.putExtra("grid_id", id);
-        startActivity(pokemonDetails);
+        listener.onPokemonSelected(id);
     }
 
     public void addToFavorites(long id)
@@ -252,6 +251,16 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         Intent fightActivity = new Intent(getContext(), FightActivity.class);
         fightActivity.putExtra("fighter1", id);
         startActivity(fightActivity);
+    }
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        listener = (OnPokemonSelectedListener) context;
+
+    }
+    public interface OnPokemonSelectedListener
+    {
+        void onPokemonSelected(long id);
     }
 
 }

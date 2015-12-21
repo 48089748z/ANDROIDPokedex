@@ -43,6 +43,12 @@ public class DetailsActivityFragment extends Fragment
             music.start();
         }
     }
+    public void loadPokemonFromActivity(Long id)
+    {
+        View view = getView();
+        grid_id = id;
+        loadPokemon();
+    }
     public void onStop()
     {
         super.onStop();

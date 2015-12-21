@@ -180,4 +180,5 @@ public class MainActivityFragment extends Fragment
                 .setIcon(R.drawable.ic_alert_48)
                 .show();
     }
+
 }

@@ -98,21 +98,30 @@ public class FightActivityFragment extends Fragment
             @Override
             public void onClick(View v) {
                 fight.setVisibility(View.INVISIBLE);
-                if (whoWins() == 1) {
+                if (whoWins() == 1)
+                {
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter2);
                     nWon++;
-                    if (myPreferences.getBoolean("soundsON", true)) {
+                    if (myPreferences.getBoolean("soundsON", true))
+                    {
                         sounds = MediaPlayer.create(getContext(), R.raw.sound_won);
                         sounds.start();
                     }
                 }
-                if (whoWins() == 2) {
+                if (whoWins() == 2)
+                {
                     Picasso.with(getContext()).load(R.drawable.loser).fit().into(fighter1);
                     nLost++;
-                    if (myPreferences.getBoolean("soundsON", true)) {
+                    if (myPreferences.getBoolean("soundsON", true))
+                    {
                         sounds = MediaPlayer.create(getContext(), R.raw.sound_lost);
                         sounds.start();
                     }
+                }
+                if (whoWins() == 0)
+                {
+                    name1.setText("TIE");
+                    name2.setText("TIE");
                 }
                 won.setText("Won: " + String.valueOf(nWon));
                 lost.setText("Lost: " + String.valueOf(nLost));
@@ -154,7 +163,8 @@ public class FightActivityFragment extends Fragment
         loadPokemon1();
         return fightActivity;
     }
-    public void autocomplete() {
+    public void autocomplete()
+    {
         LVadapter.clear();
         results.setText("");
         Cursor autocompleteCursor = getContext().getContentResolver().query(
@@ -164,9 +174,11 @@ public class FightActivityFragment extends Fragment
                 new String[]{search.getText().toString() + "%"},
                 "_id");
 
-        if (autocompleteCursor.getCount() != 0 && autocompleteCursor.getCount() < 300) {
+        if (autocompleteCursor.getCount() != 0 && autocompleteCursor.getCount() < 200)
+        {
             results.setText(String.valueOf(autocompleteCursor.getCount())+" Results ");
-            for (int x = 0; x < autocompleteCursor.getCount(); x++) {
+            for (int x = 0; x < autocompleteCursor.getCount(); x++)
+            {
                 autocompleteCursor.moveToNext();
                 Pokemon toAdd = new Pokemon();
                 toAdd.setName(autocompleteCursor.getString(autocompleteCursor.getColumnIndex(PokemonColumns.NAME)));
@@ -215,9 +227,11 @@ public class FightActivityFragment extends Fragment
                 sounds.start();
             }
         }
-        catch (Exception nameNotFound) {
+        catch (Exception nameNotFound)
+        {
             name2.setText("Not Found");
-            if (myPreferences.getBoolean("soundsON", true)) {
+            if (myPreferences.getBoolean("soundsON", true))
+            {
                 sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
                 sounds.start();
             }
@@ -228,7 +242,8 @@ public class FightActivityFragment extends Fragment
         int id = item.getItemId();
         if (id == R.id.action_search)
         {
-            if (myPreferences.getBoolean("soundsON", true)) {
+            if (myPreferences.getBoolean("soundsON", true))
+            {
                 sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
                 sounds.start();
             }
@@ -248,8 +263,9 @@ public class FightActivityFragment extends Fragment
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_fight, menu);
     }
-    public Integer whoWins()
+    public Integer whoWins() //THIS RETURNS 1 IF POKEMON 1 WINS, 2 IF POKEMON 2 WINS AND 0 IF NONE WINS
     {
+        //IF SAME POKEMON TYPES
         if (types1.toUpperCase().equals(types2.toUpperCase())) return 0;
 
         //TYPE NORMAL COMBINATIONS
