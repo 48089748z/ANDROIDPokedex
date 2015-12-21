@@ -176,7 +176,7 @@ public class FightActivityFragment extends Fragment
 
         if (autocompleteCursor.getCount() != 0 && autocompleteCursor.getCount() < 200)
         {
-            results.setText(String.valueOf(autocompleteCursor.getCount())+" Results ");
+            results.setText(String.valueOf(autocompleteCursor.getCount()) + " Results ");
             for (int x = 0; x < autocompleteCursor.getCount(); x++)
             {
                 autocompleteCursor.moveToNext();
@@ -205,29 +205,26 @@ public class FightActivityFragment extends Fragment
     }
     public void loadPokemon2(String pokemonName)
     {
-        try
+        myCursor2 = getContext().getContentResolver().query(
+                PokemonColumns.CONTENT_URI,
+                null,
+                PokemonColumns.NAME + " = ?",
+                new String[]{String.valueOf(pokemonName)},
+                "_id");
+        if (myCursor2.getCount()!=0)
         {
-            myCursor2 = getContext().getContentResolver().query(
-                    PokemonColumns.CONTENT_URI,
-                    null,
-                    PokemonColumns.NAME + " = ?",
-                    new String[]{String.valueOf(pokemonName)},
-                    "_id");
-            if (myCursor2.getCount()!=0)
-            {
-                myCursor2.moveToNext();
-                types2 = myCursor2.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
-                name2.setText(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
-                Picasso.with(getContext()).load(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter2);
-                fight.setVisibility(View.VISIBLE);
-            }
+            myCursor2.moveToNext();
+            types2 = myCursor2.getString(myCursor1.getColumnIndex(PokemonColumns.TYPES));
+            name2.setText(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
+            Picasso.with(getContext()).load(myCursor2.getString(myCursor2.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter2);
+            fight.setVisibility(View.VISIBLE);
             if (myPreferences.getBoolean("soundsON", true))
             {
                 sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
                 sounds.start();
             }
         }
-        catch (Exception nameNotFound)
+        else
         {
             name2.setText("Not Found");
             if (myPreferences.getBoolean("soundsON", true))

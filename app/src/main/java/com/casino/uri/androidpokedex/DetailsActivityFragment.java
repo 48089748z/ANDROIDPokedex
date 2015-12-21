@@ -91,17 +91,13 @@ public class DetailsActivityFragment extends Fragment
         }
         if (pokemonName != null && grid_id == -1 && favorite_id == -1) //LOADS THE SEARCH BY NAME
         {
-            try
-            {
-                myCursor = getContext().getContentResolver().query(
-                        PokemonColumns.CONTENT_URI,
-                        null,
-                        PokemonColumns.NAME + " = ?",
-                        new String[]{String.valueOf(pokemonName)},
-                        "_id");
-                fillPokemon();
-            }
-            catch(Exception nameNotFound)
+            myCursor = getContext().getContentResolver().query(
+                    PokemonColumns.CONTENT_URI,
+                    null,
+                    PokemonColumns.NAME + " = ?",
+                    new String[]{String.valueOf(pokemonName)},
+                    "_id");
+            if (myCursor.getCount() == 0)
             {
                 name.setText("POKEMON NOT FOUND");
                 Picasso.with(getContext()).load(R.drawable.pokemonnotfound).fit().into(image);
@@ -110,7 +106,10 @@ public class DetailsActivityFragment extends Fragment
                     sounds = MediaPlayer.create(getContext(), R.raw.sound_notfound);
                     sounds.start();
                 }
-
+            }
+            else
+            {
+                fillPokemon();
             }
         }
         if (pokemonName == null && grid_id == -1 && favorite_id != -1) //LOADS FAVORITE ID
