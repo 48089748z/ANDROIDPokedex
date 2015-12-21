@@ -11,10 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 public class PokemonAdapterLV extends ArrayAdapter<Pokemon>
 {
-    public PokemonAdapterLV(Context context, int resource, List<Pokemon> objects)
-    {
-        super(context, resource, objects);
-    }
+    public PokemonAdapterLV(Context context, int resource, List<Pokemon> objects) {super(context, resource, objects);}
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {

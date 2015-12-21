@@ -41,8 +41,8 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     PokemonAdapterLV LVadapter;
     GridView pokedexGV;
     ListView autoCompleteLV;
-    TextView results;
-    EditText search;
+    TextView numResultsTV;
+    EditText searchET;
     ImageButton searchBT;
     public void onStart()
     {
@@ -65,13 +65,13 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         final View gridViewFragment = inflater.inflate(R.layout.fragment_grid_view, container, false);
         setHasOptionsMenu(true);
 
-        results = (TextView) gridViewFragment.findViewById(R.id.TVresults);
+        numResultsTV = (TextView) gridViewFragment.findViewById(R.id.TVresults);
         autoCompleteLV = (ListView) gridViewFragment.findViewById(R.id.LVautocomplete);
         pokedexGV = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
-        search = (EditText) gridViewFragment.findViewById(R.id.ETsearch);
+        searchET = (EditText) gridViewFragment.findViewById(R.id.ETsearch);
         searchBT = (ImageButton) gridViewFragment.findViewById(R.id.IBsearchFight);
         music = MediaPlayer.create(getContext(), R.raw.song_pokedex);
-        search.setVisibility(View.INVISIBLE);
+        searchET.setVisibility(View.INVISIBLE);
         searchBT.setVisibility(View.INVISIBLE);
         GVadapter = new PokemonDatabaseAdapterGV(
                 getContext(),
@@ -101,20 +101,20 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
             @Override
             public void onClick(View v) {
                 try {
-                    String pokemonName = search.getText().toString().toLowerCase();
+                    String pokemonName = searchET.getText().toString().toLowerCase();
                     String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
                     searchPokemon(parsedPokemonName);
-                    search.setVisibility(View.INVISIBLE);
+                    searchET.setVisibility(View.INVISIBLE);
                     searchBT.setVisibility(View.INVISIBLE);
-                    search.setText("");
-                    search.setHint("Search Pokemon by name");
+                    searchET.setText("");
+                    searchET.setHint("Search Pokemon by name");
                 } catch (Exception noName) {
                     searchPokemon(" ");
                 }
             }
         });
 
-        search.addTextChangedListener(new TextWatcher() {
+        searchET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -134,7 +134,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 Pokemon clicked = (Pokemon) autoCompleteLV.getItemAtPosition(position);
-                search.setText(clicked.getName());
+                searchET.setText(clicked.getName());
             }
         });
         autoCompleteLV.setAdapter(LVadapter);
@@ -143,17 +143,17 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     public void autocomplete()
     {
         LVadapter.clear();
-        results.setText("");
+        numResultsTV.setText("");
         Cursor autocompleteCursor = getContext().getContentResolver().query(
                 PokemonColumns.CONTENT_URI,
                 null,
                 PokemonColumns.NAME+" LIKE ?",
-                new String[]{search.getText().toString()+"%"},
+                new String[]{searchET.getText().toString()+"%"},
                 "_id");
 
         if (autocompleteCursor.getCount()!=0 && autocompleteCursor.getCount()<150)
         {
-            results.setText(String.valueOf(autocompleteCursor.getCount())+" Results ");
+            numResultsTV.setText(String.valueOf(autocompleteCursor.getCount()) + " Results ");
             for (int x=0; x<autocompleteCursor.getCount(); x++)
             {
                 autocompleteCursor.moveToNext();
@@ -218,7 +218,7 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
                 sounds.start();
             }
-            search.setVisibility(View.VISIBLE);
+            searchET.setVisibility(View.VISIBLE);
             searchBT.setVisibility(View.VISIBLE);
             return true;
         }

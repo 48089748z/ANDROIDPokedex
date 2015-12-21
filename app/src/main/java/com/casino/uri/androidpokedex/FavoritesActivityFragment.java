@@ -31,7 +31,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
     MediaPlayer sounds;
     Cursor myCursor;
     long cursor_id = -1;
-    GridView favorites;
+    GridView favoritesGV;
     PokemonDatabaseAdapterGV adapter;
     public FavoritesActivityFragment() {}
     @Override
@@ -39,7 +39,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
     {
         View favoritesActivityFragment = inflater.inflate(R.layout.fragment_favorites, container, false);
         setHasOptionsMenu(true);
-        favorites = (GridView) favoritesActivityFragment.findViewById(R.id.GVfavorites);
+        favoritesGV = (GridView) favoritesActivityFragment.findViewById(R.id.GVfavorites);
         music = MediaPlayer.create(getContext(), R.raw.song_healing);
         adapter = new PokemonDatabaseAdapterGV(
                 getContext(),
@@ -48,15 +48,15 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 new String[] { FavoriteColumns.NAME, FavoriteColumns.MODIFIED },
                 new int[] { R.id.TVname, R.id.IVimage},
                 0);
-        favorites.setAdapter(adapter);
-        favorites.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        favoritesGV.setAdapter(adapter);
+        favoritesGV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 deleteSelected(id);
                 return false;
             }
         });
-        favorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        favoritesGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 detailsSelected(id);
@@ -78,6 +78,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 PokemonColumns._ID + " = ?",
                 new String[]{String.valueOf(id)},
                 "_id");
+
         if (myCursor.getCount()!=0)
         {
             myCursor.moveToNext();
@@ -147,7 +148,8 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                 .setPositiveButton("Delete All", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which)
                     {
-                        if (myPreferences.getBoolean("soundsON", true)) {
+                        if (myPreferences.getBoolean("soundsON", true))
+                        {
                             sounds = MediaPlayer.create(getContext(), R.raw.sound_favorites_deleted);
                             sounds.start();
                         }
@@ -155,8 +157,7 @@ public class FavoritesActivityFragment extends Fragment implements LoaderManager
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                    public void onClick(DialogInterface dialog, int which) {}
                 })
                 .setIcon(R.drawable.ic_alert_48)
                 .show();

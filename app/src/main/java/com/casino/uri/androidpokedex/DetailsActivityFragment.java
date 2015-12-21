@@ -38,14 +38,10 @@ public class DetailsActivityFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-        if (myPreferences.getBoolean("musicON", true))
-        {
-            music.start();
-        }
+        if (myPreferences.getBoolean("musicON", true)) {music.start();}
     }
     public void loadPokemonFromActivity(Long id)
     {
-        View view = getView();
         grid_id = id;
         loadPokemon();
     }
@@ -79,7 +75,7 @@ public class DetailsActivityFragment extends Fragment
     }
     public void loadPokemon()
     {
-        if (pokemonName == null && grid_id != -1 && favorite_id == -1) //LOADS GRID ID
+        if (pokemonName == null && grid_id != -1 && favorite_id == -1) //LOADS POEMON FROM CLICK ON GRID ACTIVIY FRAGMENT GRID ID
         {
             myCursor = getContext().getContentResolver().query(
                     PokemonColumns.CONTENT_URI,
@@ -89,7 +85,7 @@ public class DetailsActivityFragment extends Fragment
                     "_id");
             fillPokemon();
         }
-        if (pokemonName != null && grid_id == -1 && favorite_id == -1) //LOADS THE SEARCH BY NAME
+        if (pokemonName != null && grid_id == -1 && favorite_id == -1) //LOADS POKEMON FROM THE SEARCH BY NAME
         {
             myCursor = getContext().getContentResolver().query(
                     PokemonColumns.CONTENT_URI,
@@ -112,7 +108,7 @@ public class DetailsActivityFragment extends Fragment
                 fillPokemon();
             }
         }
-        if (pokemonName == null && grid_id == -1 && favorite_id != -1) //LOADS FAVORITE ID
+        if (pokemonName == null && grid_id == -1 && favorite_id != -1) //LOADS POKEMON FROM THE CLICK ON FAVORITE ACTIVIY FRAGMENT GRID ID
         {
             myCursor = getContext().getContentResolver().query(
                     FavoriteColumns.CONTENT_URI,
@@ -123,7 +119,7 @@ public class DetailsActivityFragment extends Fragment
             fillFavorite();
         }
     }
-    public void fillPokemon()
+    public void fillPokemon() //ASSIGNS VARIABLES FROM TABLE POKEMON
     {
         if (myCursor.getCount() != 0)
         {
@@ -140,7 +136,7 @@ public class DetailsActivityFragment extends Fragment
             soundFound();
         }
     }
-    public void fillFavorite()
+    public void fillFavorite() //ASSIGNS VARIABLES FROM TABLE FAVORITES
     {
         if (myCursor.getCount() != 0)
         {

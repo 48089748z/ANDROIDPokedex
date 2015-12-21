@@ -13,9 +13,9 @@ import android.widget.Switch;
 public class SettingsActivityFragment extends PreferenceFragment
 {
     SharedPreferences myPreferences;
-    Switch music;
-    Switch sounds;
-    SharedPreferences.Editor editor;
+    Switch musicSwitch;
+    Switch soundsSwitch;
+    SharedPreferences.Editor sharedPreferencesEditor;
 
     public SettingsActivityFragment() {}
 
@@ -25,46 +25,43 @@ public class SettingsActivityFragment extends PreferenceFragment
         View settingsActivity = inflater.inflate(R.layout.fragment_settings, container, false);
 
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
-        music = (Switch) settingsActivity.findViewById(R.id.SWmusic);
-        sounds = (Switch) settingsActivity.findViewById(R.id.SWsounds);
+        musicSwitch = (Switch) settingsActivity.findViewById(R.id.SWmusic);
+        soundsSwitch = (Switch) settingsActivity.findViewById(R.id.SWsounds);
 
-        music.setChecked(myPreferences.getBoolean("musicON", true));
-        sounds.setChecked(myPreferences.getBoolean("soundsON", true));
-        music.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        musicSwitch.setChecked(myPreferences.getBoolean("musicON", true));
+        soundsSwitch.setChecked(myPreferences.getBoolean("soundsON", true));
+        musicSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
                 {
-                    editor = myPreferences.edit();
-                    editor.putBoolean("musicON", true);
-                    editor.commit();
+                    sharedPreferencesEditor = myPreferences.edit();
+                    sharedPreferencesEditor.putBoolean("musicON", true);
+                    sharedPreferencesEditor.commit();
                 }
                 else
                 {
-                    editor = myPreferences.edit();
-                    editor.putBoolean("musicON", false);
-                    editor.commit();
+                    sharedPreferencesEditor = myPreferences.edit();
+                    sharedPreferencesEditor.putBoolean("musicON", false);
+                    sharedPreferencesEditor.commit();
                 }
-
             }
         });
-        sounds.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        soundsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
                 {
-                    editor = myPreferences.edit();
-                    editor.putBoolean("soundsON", true);
-                    editor.commit();
+                    sharedPreferencesEditor = myPreferences.edit();
+                    sharedPreferencesEditor.putBoolean("soundsON", true);
+                    sharedPreferencesEditor.commit();
                 }
                 else
                 {
-                    editor = myPreferences.edit();
-                    editor.putBoolean("soundsON", false);
-                    editor.commit();
+                    sharedPreferencesEditor = myPreferences.edit();
+                    sharedPreferencesEditor.putBoolean("soundsON", false);
+                    sharedPreferencesEditor.commit();
                 }
             }
         });
