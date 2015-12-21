@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.casino.uri.androidpokedex.com.pojos.Pokedex;
 import com.casino.uri.androidpokedex.com.pojos.Pokemon;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonContentValues;
@@ -33,6 +34,7 @@ import retrofit.http.Path;
 
 public class MainActivityFragment extends Fragment
 {
+    Integer pokedexSize = 0;
     MediaPlayer sounds;
     SharedPreferences myPreferences;
     private String TITLE_URI = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/2000px-English_Pok%C3%A9mon_logo.svg.png";
@@ -41,7 +43,7 @@ public class MainActivityFragment extends Fragment
     VideoView mainVideo;
     ImageView title;
     ImageView masterBall;
-    PokemonService service;
+    PokemonService pokemonService;
     Retrofit retrofit;
 
     public MainActivityFragment() {}
@@ -88,11 +90,12 @@ public class MainActivityFragment extends Fragment
                 null,
                 null);
     }
-    public void downloadPokedex()
+    public void downloadPokemons()
     {
-        for (int id=1; id<715; id++)
+        getPokedexSize();
+        for (int id=1; id<=pokedexSize; id++)
         {
-            Call<Pokemon> call = service.getPokemon(id);
+            Call<Pokemon> call = pokemonService.getPokemon(id);
             call.enqueue(new Callback<Pokemon>()
             {
                 @Override
@@ -130,6 +133,9 @@ public class MainActivityFragment extends Fragment
         @GET("pokemon/{id}")
         Call<Pokemon>getPokemon(
                 @Path("id") Integer id);
+
+        @GET("pokedex/1/")
+        Call<Pokedex>getPokedex();
     }
     public void createRetrofit()
     {
@@ -137,7 +143,7 @@ public class MainActivityFragment extends Fragment
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        service = retrofit.create(PokemonService.class);
+        pokemonService = retrofit.create(PokemonService.class);
     }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
     {
@@ -171,7 +177,7 @@ public class MainActivityFragment extends Fragment
                         sounds.start();
                         deleteDatabase();
                         createRetrofit();
-                        downloadPokedex();
+                        downloadPokemons();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -180,5 +186,26 @@ public class MainActivityFragment extends Fragment
                 .setIcon(R.drawable.ic_alert_48)
                 .show();
     }
+    public void getPokedexSize()
+    {
+            Call<Pokedex> call = pokemonService.getPokedex();
+            call.enqueue(new Callback<Pokedex>()
+            {
 
+                @Override
+                public void onResponse(Response<Pokedex> response, Retrofit retrofit)
+                {
+                    if (response.isSuccess())
+                    {
+                        Pokedex pokedex = response.body();
+                        pokedexSize = pokedex.getPokemon().size();
+                    }
+                }
+                @Override
+                public void onFailure(Throwable t)
+                {
+                    pokedexSize = 0;
+                }
+            });
+    }
 }
