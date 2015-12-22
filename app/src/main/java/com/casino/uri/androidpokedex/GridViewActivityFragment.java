@@ -210,6 +210,10 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         }
         if (id == R.id.action_favorites)
         {
+            if (myPreferences.getBoolean("soundsON", true)) {
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_favorite);
+                sounds.start();
+            }
             Intent favoritesActivityFragment = new Intent(getContext(), FavoritesActivity.class);
             startActivity(favoritesActivityFragment);
         }
@@ -217,6 +221,11 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     }
     public void searchPokemon(String pokemonName)
     {
+        if (myPreferences.getBoolean("soundsON", true))
+        {
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_details);
+            sounds.start();
+        }
         Intent detailsActivityFragment = new Intent(getContext(), DetailsActivity.class);
         detailsActivityFragment.putExtra("pokemonName", pokemonName);
         startActivity(detailsActivityFragment);
@@ -228,12 +237,20 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
 
     public void addToFavorites(long id)
     {
+        if (myPreferences.getBoolean("soundsON", true)) {
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_favorite);
+            sounds.start();
+        }
         Intent favoritesActivity = new Intent(getContext(), FavoritesActivity.class);
         favoritesActivity.putExtra("favorite_id", id);
         startActivity(favoritesActivity);
     }
     public void fight(long id)
     {
+        if (myPreferences.getBoolean("soundsON", true)) {
+            sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
+            sounds.start();
+        }
         Intent fightActivity = new Intent(getContext(), FightActivity.class);
         fightActivity.putExtra("fighter1", id);
         startActivity(fightActivity);
