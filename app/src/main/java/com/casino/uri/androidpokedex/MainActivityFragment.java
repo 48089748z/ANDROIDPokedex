@@ -1,5 +1,8 @@
 package com.casino.uri.androidpokedex;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +27,9 @@ import com.casino.uri.androidpokedex.provider.pokemon.PokemonColumns;
 import com.casino.uri.androidpokedex.provider.pokemon.PokemonContentValues;
 import com.squareup.picasso.Picasso;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -46,6 +52,30 @@ public class MainActivityFragment extends Fragment
     PokemonService pokemonService;
     Retrofit retrofit;
 
+    public class AlarmReciever extends BroadcastReceiver
+    {
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+            deleteDatabase();
+            createRetrofit();
+            getPokedexSize();
+            downloadPokemons();
+        }
+    }
+    public void setAlarm()
+    {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23); // Repeats the alarm everyday at 23:00 hours
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        PendingIntent pi = PendingIntent.getService(getContext(), 0,
+                new Intent(getContext(), AlarmReciever.class),PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pi);
+    }
+
     public MainActivityFragment() {}
     @Override
     public void onStart()
@@ -54,11 +84,13 @@ public class MainActivityFragment extends Fragment
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         mainVideo.start();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View mainActivityFragment = inflater.inflate(R.layout.fragment_main, container, false);
         setHasOptionsMenu(true);
+        setAlarm();
 
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         mainVideo = (VideoView) mainActivityFragment.findViewById(R.id.VVmainVideo);
@@ -186,22 +218,19 @@ public class MainActivityFragment extends Fragment
                 .setIcon(R.drawable.ic_alert_48)
                 .show();
     }
-    public void getPokedexSize()
-    {
-            Call<Pokedex> call = pokemonService.getPokedex();
-            call.enqueue(new Callback<Pokedex>()
-            {
-                @Override
-                public void onResponse(Response<Pokedex> response, Retrofit retrofit) {
-                    if (response.isSuccess())
-                    {
-                        Pokedex pokedex = response.body();
-                        pokedexSize = pokedex.getPokemon().size();
-                    }
+    public void getPokedexSize() {
+        Call<Pokedex> call = pokemonService.getPokedex();
+        call.enqueue(new Callback<Pokedex>() {
+            @Override
+            public void onResponse(Response<Pokedex> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    Pokedex pokedex = response.body();
+                    pokedexSize = pokedex.getPokemon().size();
                 }
+            }
 
-                @Override
-                public void onFailure(Throwable t) {
+            @Override
+            public void onFailure(Throwable t) {
                     pokedexSize = 0;
                 }
             });

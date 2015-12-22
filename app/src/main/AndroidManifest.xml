@@ -3,6 +3,7 @@
     package="com.casino.uri.androidpokedex" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -10,6 +11,7 @@
         android:label="Pokedex"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+        <receiver android:name=".MainActivityFragment$AlarmReciever"/>
 
         <provider
             android:name=".provider.PokemonsProvider"
@@ -72,7 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.casino.uri.androidpokedex.MainActivity" />
         </activity>
-
     </application>
 
 </manifest>
