@@ -46,9 +46,8 @@ public class FightActivityFragment extends Fragment
     String types2 = null;
     Cursor myCursor1 = null;
     Cursor myCursor2 = null;
-    EditText search;
+    EditText searchET;
     ImageButton fight;
-    ImageButton searchBT;
     ImageView fighter1;
     ImageView fighter2;
     TextView name1;
@@ -59,6 +58,7 @@ public class FightActivityFragment extends Fragment
     {
         super.onStart();
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        searchET.setVisibility(View.INVISIBLE);
         if (myPreferences.getBoolean("musicON", true))
         {
             music.start();
@@ -85,13 +85,11 @@ public class FightActivityFragment extends Fragment
         name2 = (TextView) fightActivity.findViewById(R.id.TVname2);
         won = (TextView) fightActivity.findViewById(R.id.TVwon);
         lost = (TextView) fightActivity.findViewById(R.id.TVlost);
-        search = (EditText) fightActivity.findViewById(R.id.ETsearchFight);
-        searchBT = (ImageButton) fightActivity.findViewById(R.id.IBsearchFight);
+        searchET = (EditText) fightActivity.findViewById(R.id.ETsearchFight);
         music = MediaPlayer.create(getContext(), R.raw.song_battle);
         won.setTextColor(Color.GREEN);
         lost.setTextColor(Color.RED);
-        search.setVisibility(View.INVISIBLE);
-        searchBT.setVisibility(View.INVISIBLE);
+        searchET.setVisibility(View.INVISIBLE);
         fight.setVisibility(View.INVISIBLE);
 
         fight.setOnClickListener(new View.OnClickListener() {
@@ -127,36 +125,32 @@ public class FightActivityFragment extends Fragment
                 lost.setText("Lost: " + String.valueOf(nLost));
             }
         });
-        searchBT.setOnClickListener(new View.OnClickListener() {
+        searchET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                try {
-                    String pokemonName = search.getText().toString().toLowerCase();
-                    String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
-                    loadPokemon2(parsedPokemonName);
-                    search.setVisibility(View.INVISIBLE);
-                    searchBT.setVisibility(View.INVISIBLE);
-                    search.setText("");
-                    search.setHint("Search Pokemon Enemy by name");
-                } catch (Exception noName) {
-                    loadPokemon2(" ");
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-        });
-        search.addTextChangedListener(new TextWatcher() {
+
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-            @Override
-            public void afterTextChanged(Editable s) {autocomplete();}
+            public void afterTextChanged(Editable s) {
+                autocomplete();
+            }
         });
         LVadapter = new PokemonAdapterLV(getContext(), 0, items);
         autoCompleteLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pokemon clicked = (Pokemon) autoCompleteLV.getItemAtPosition(position);
-                search.setText(clicked.getName());
+                searchET.setText(clicked.getName());
+                String pokemonName = searchET.getText().toString().toLowerCase();
+                String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
+                loadPokemon2(parsedPokemonName);
+                searchET.setVisibility(View.INVISIBLE);
+                searchET.setText("");
+                searchET.setHint("Search Pokemon Enemy by name");
             }
         });
         autoCompleteLV.setAdapter(LVadapter);
@@ -171,7 +165,7 @@ public class FightActivityFragment extends Fragment
                 PokemonColumns.CONTENT_URI,
                 null,
                 PokemonColumns.NAME + " LIKE ?",
-                new String[]{search.getText().toString() + "%"},
+                new String[]{searchET.getText().toString() + "%"},
                 "_id");
 
         if (autocompleteCursor.getCount() != 0 && autocompleteCursor.getCount() < 200)
@@ -241,11 +235,10 @@ public class FightActivityFragment extends Fragment
         {
             if (myPreferences.getBoolean("soundsON", true))
             {
-                sounds = MediaPlayer.create(getContext(), R.raw.sound_search);
+                sounds = MediaPlayer.create(getContext(), R.raw.sound_fight);
                 sounds.start();
             }
-            search.setVisibility(View.VISIBLE);
-            searchBT.setVisibility(View.VISIBLE);
+            searchET.setVisibility(View.VISIBLE);
             fight.setVisibility(View.INVISIBLE);
             name1.setText(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.NAME)).toUpperCase());
             Picasso.with(getContext()).load(myCursor1.getString(myCursor1.getColumnIndex(PokemonColumns.IMAGE))).fit().into(fighter1);

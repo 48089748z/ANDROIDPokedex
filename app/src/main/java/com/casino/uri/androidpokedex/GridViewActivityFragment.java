@@ -43,11 +43,11 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
     ListView autoCompleteLV;
     TextView numResultsTV;
     EditText searchET;
-    ImageButton searchBT;
     public void onStart()
     {
         super.onStart();
         getLoaderManager().restartLoader(0, null, this);
+        searchET.setVisibility(View.INVISIBLE);
         myPreferences = getActivity().getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
         if (myPreferences.getBoolean("musicON", true))
         {
@@ -69,10 +69,8 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
         autoCompleteLV = (ListView) gridViewFragment.findViewById(R.id.LVautocomplete);
         pokedexGV = (GridView) gridViewFragment.findViewById(R.id.GVpokedex);
         searchET = (EditText) gridViewFragment.findViewById(R.id.ETsearch);
-        searchBT = (ImageButton) gridViewFragment.findViewById(R.id.IBsearchFight);
         music = MediaPlayer.create(getContext(), R.raw.song_pokedex);
         searchET.setVisibility(View.INVISIBLE);
-        searchBT.setVisibility(View.INVISIBLE);
         GVadapter = new PokemonDatabaseAdapterGV(
                 getContext(),
                 R.layout.gridview_layout,
@@ -97,23 +95,6 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
             }
         });
 
-        searchBT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    String pokemonName = searchET.getText().toString().toLowerCase();
-                    String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
-                    searchPokemon(parsedPokemonName);
-                    searchET.setVisibility(View.INVISIBLE);
-                    searchBT.setVisibility(View.INVISIBLE);
-                    searchET.setText("");
-                    searchET.setHint("Search Pokemon by name");
-                } catch (Exception noName) {
-                    searchPokemon(" ");
-                }
-            }
-        });
-
         searchET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,6 +116,12 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
             {
                 Pokemon clicked = (Pokemon) autoCompleteLV.getItemAtPosition(position);
                 searchET.setText(clicked.getName());
+                String pokemonName = searchET.getText().toString().toLowerCase();
+                String parsedPokemonName = pokemonName.substring(0, 1).toUpperCase() + pokemonName.substring(1);
+                searchPokemon(parsedPokemonName);
+                searchET.setVisibility(View.INVISIBLE);
+                searchET.setText("");
+                searchET.setHint("Search Pokemon by name");
             }
         });
         autoCompleteLV.setAdapter(LVadapter);
@@ -219,7 +206,6 @@ public class GridViewActivityFragment extends Fragment implements LoaderManager.
                 sounds.start();
             }
             searchET.setVisibility(View.VISIBLE);
-            searchBT.setVisibility(View.VISIBLE);
             return true;
         }
         if (id == R.id.action_favorites)

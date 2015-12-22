@@ -34,7 +34,7 @@ import retrofit.http.Path;
 
 public class MainActivityFragment extends Fragment
 {
-    Integer pokedexSize = 0;
+    Integer pokedexSize = 720;
     MediaPlayer sounds;
     SharedPreferences myPreferences;
     private String TITLE_URI = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/English_Pok%C3%A9mon_logo.svg/2000px-English_Pok%C3%A9mon_logo.svg.png";
@@ -92,7 +92,6 @@ public class MainActivityFragment extends Fragment
     }
     public void downloadPokemons()
     {
-        getPokedexSize();
         for (int id=1; id<=pokedexSize; id++)
         {
             Call<Pokemon> call = pokemonService.getPokemon(id);
@@ -177,6 +176,7 @@ public class MainActivityFragment extends Fragment
                         sounds.start();
                         deleteDatabase();
                         createRetrofit();
+                        getPokedexSize();
                         downloadPokemons();
                     }
                 })
@@ -191,19 +191,17 @@ public class MainActivityFragment extends Fragment
             Call<Pokedex> call = pokemonService.getPokedex();
             call.enqueue(new Callback<Pokedex>()
             {
-
                 @Override
-                public void onResponse(Response<Pokedex> response, Retrofit retrofit)
-                {
+                public void onResponse(Response<Pokedex> response, Retrofit retrofit) {
                     if (response.isSuccess())
                     {
                         Pokedex pokedex = response.body();
                         pokedexSize = pokedex.getPokemon().size();
                     }
                 }
+
                 @Override
-                public void onFailure(Throwable t)
-                {
+                public void onFailure(Throwable t) {
                     pokedexSize = 0;
                 }
             });
